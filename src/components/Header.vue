@@ -2,26 +2,10 @@
     <div class="m-content">
         <el-backtop></el-backtop>
         <el-menu mode="horizontal">
-            <el-menu-item index="1"><a href=""><img src="../assets/logo.gif" alt="" style="height: 50px"></a>
+            <el-menu-item index="1"><a href="/"><img src="../assets/logo.gif" alt="" style="height: 50px"></a>
             </el-menu-item>
             <el-menu-item index="2"><a href="/blogs">首页</a></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="5"></el-menu-item>
-            <el-menu-item index="6">
+            <el-menu-item index="6" style="float: right;">
                 <div v-show="!hasLogin">
                     <span><el-link href="/login">登录</el-link></span>
                 </div>
@@ -31,10 +15,24 @@
                             <el-avatar :size="50" :src="user.avatar"></el-avatar>
                           </span>
                         <el-dropdown-menu slot="dropdown" style="width: 100px;margin-right: -50px;text-align: center;">
-                            <el-dropdown-item><el-link><el-link href="/blogs">主页</el-link></el-link></el-dropdown-item>
-                            <el-dropdown-item><el-link><el-link href="/setting">账号设置</el-link></el-link></el-dropdown-item>
-                            <el-dropdown-item><el-link><el-link href="/man">管理博客</el-link></el-link></el-dropdown-item>
-                            <el-dropdown-item><el-link @click="logout">退出</el-link></el-dropdown-item>
+                            <el-dropdown-item>
+                                <el-link>
+                                    <el-link href="/blogs">主页</el-link>
+                                </el-link>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                                <el-link>
+                                    <el-link href="/setting">账号设置</el-link>
+                                </el-link>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                                <el-link>
+                                    <el-link href="/man">管理博客</el-link>
+                                </el-link>
+                            </el-dropdown-item>
+                            <el-dropdown-item>
+                                <el-link @click="logout">退出</el-link>
+                            </el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </div>
@@ -44,7 +42,7 @@
 
         <div class="maction">
             <!--<div class="block">-->
-                <!--<h1>欢迎你{{ user.username }}</h1>-->
+            <!--<h1>欢迎你{{ user.username }}</h1>-->
             <!--</div>-->
         </div>
 
@@ -78,8 +76,9 @@
         },
         created() {
             if (this.$store.getters.getUser.username) {
-                this.user.username = this.$store.getters.getUser.username
-                this.user.avatar = this.$store.getters.getUser.avatar
+                this.user.username = this.$store.getters.getUser.username;
+                if (this.$store.getters.getUser.avatar != null)
+                    this.user.avatar = this.$store.getters.getUser.avatar
 
                 this.hasLogin = true
             }
@@ -99,6 +98,7 @@
     .maction {
         margin: 30px 0;
     }
+
     .el-dropdown-link {
         margin-left: 10px;
         cursor: pointer;

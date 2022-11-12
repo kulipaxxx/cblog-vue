@@ -5,6 +5,7 @@ import BlogDetail from '../views/BlogDetails.vue'
 import BlogEdit from '../views/BlogEdit.vue'
 import UserSeeting from '../views/UserSetting'
 import Man from '../views/Manager'
+import Register from "../views/Register"
 
 Vue.use(VueRouter)
 const routes = [
@@ -33,6 +34,11 @@ const routes = [
     path: '/man',
     name: 'Man',
     component: Man
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
   },
   {
     path: '/blog/add', // 注意放在 path: '/blog/:blogId'之前

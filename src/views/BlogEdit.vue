@@ -88,10 +88,11 @@
             }
         },
         created() {
-            const blogId = this.$route.params.blogId
-            console.log(blogId)
-            const _this = this
-            if(blogId) {
+            let blogId1 = this.$route.params.blogId;
+            let blogId2 = this.$route.query.blogId;
+            const _this = this;
+            if(blogId1 || blogId2) {
+                let blogId = blogId1 ? blogId1 : blogId2;
                 this.$axios.get('/blog/' + blogId).then(res => {
                     const blog = res.data.data
                     _this.ruleForm.id = blog.id

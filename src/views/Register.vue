@@ -2,7 +2,7 @@
     <div>
         <el-container>
             <el-header>
-                登录
+                注册
             </el-header>
             <el-main>
                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
@@ -13,19 +13,18 @@
                         <el-input type="password" v-model="ruleForm.password"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                        <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
                         <el-button @click="resetForm('ruleForm')">重置</el-button>
-                        <el-button type="primary" @click="Register()">注册</el-button>
                     </el-form-item>
                 </el-form>
                 <!--<el-form-item>-->
-                    <!--<img-->
-                            <!--style="width: 85%; height: 35px; float: right"-->
-                            <!--class="pointer"-->
-                            <!--:src="src"-->
-                            <!--alt=""-->
-                            <!--@click="refreshCaptcha"-->
-                    <!--/>-->
+                <!--<img-->
+                <!--style="width: 85%; height: 35px; float: right"-->
+                <!--class="pointer"-->
+                <!--:src="src"-->
+                <!--alt=""-->
+                <!--@click="refreshCaptcha"-->
+                <!--/>-->
                 <!--</el-form-item>-->
             </el-main>
         </el-container>
@@ -35,13 +34,13 @@
 
 <script>
     export default {
-        name: "Login",
+        name: "Register",
 
         data() {
             return {
                 ruleForm: {
-                    username: 'cblog',
-                    password: '111111',
+                    username: '',
+                    password: '',
                     key: '',
                 },
                 rules: {
@@ -61,21 +60,14 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this;
-                        this.$axios.post('/login',this.ruleForm).then(res=>{
-                            const token = res.headers['authorization']
-                            _this.$store.commit('SET_TOKEN', token)
-                            _this.$store.commit('SET_USERINFO', res.data.data)
-
-                            _this.$router.push("/blogs")
+                        this.$axios.post('/register',this.ruleForm).then(res=>{
+                            _this.$router.push("/login")
                         })
                     } else {
                         console.log('error submit!!');
                         return false;
                     }
                 });
-            },
-            Register(){
-                this.$router.push("/register");
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
@@ -115,7 +107,7 @@
     }
 
     /*body > .el-container {*/
-        /*margin-bottom: 40px;*/
+    /*margin-bottom: 40px;*/
     /*}*/
 
     .el-container:nth-child(5) .el-aside,
