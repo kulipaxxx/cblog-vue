@@ -61,7 +61,6 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-
                         const _this = this
                         this.$axios.post('/blog/edit', this.ruleForm, {
                             headers: {

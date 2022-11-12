@@ -3,6 +3,9 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import BlogDetail from '../views/BlogDetails.vue'
 import BlogEdit from '../views/BlogEdit.vue'
+import UserSeeting from '../views/UserSetting'
+import Man from '../views/Manager'
+
 Vue.use(VueRouter)
 const routes = [
   {
@@ -20,6 +23,16 @@ const routes = [
     name: 'Blogs',
     // 懒加载
     component: () => import('../views/Blogs.vue')
+  },
+  {
+    path: '/setting',
+    name: 'Seeting',
+    component: UserSeeting
+  },
+  {
+    path: '/man',
+    name: 'Man',
+    component: Man
   },
   {
     path: '/blog/add', // 注意放在 path: '/blog/:blogId'之前

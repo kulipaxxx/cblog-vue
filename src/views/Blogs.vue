@@ -26,18 +26,18 @@
                            :total="total"
                            @current-change=page>
             </el-pagination>
-
         </div>
-
+        <Footer></Footer>
     </div>
+
 </template>
 
 <script>
     import Header from "../components/Header";
-
+    import Footer from "../components/Footer";
     export default {
         name: "Blogs.vue",
-        components: {Header},
+        components: {Header,Footer},
         data() {
             return {
                 blogs: {},

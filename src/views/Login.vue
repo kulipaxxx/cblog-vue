@@ -17,10 +17,29 @@
                         <el-button @click="resetForm('ruleForm')">重置</el-button>
                     </el-form-item>
                 </el-form>
+                <!--<el-form-item>-->
+                    <!--<img-->
+                            <!--style="width: 85%; height: 35px; float: right"-->
+                            <!--class="pointer"-->
+                            <!--:src="src"-->
+                            <!--alt=""-->
+                            <!--@click="refreshCaptcha"-->
+                    <!--/>-->
+                <!--</el-form-item>-->
             </el-main>
         </el-container>
     </div>
-
+    <!--<el-col>-->
+        <!--<el-form-item>-->
+            <!--<img-->
+                    <!--style="width: 85%; height: 35px; float: right"-->
+                    <!--class="pointer"-->
+                    <!--:src="src"-->
+                    <!--alt=""-->
+                    <!--@click="refreshCaptcha"-->
+            <!--/>-->
+        <!--</el-form-item>-->
+    <!--</el-col>-->
 </template>
 
 <script>
@@ -32,6 +51,7 @@
                 ruleForm: {
                     username: 'cblog',
                     password: '111111',
+                    key: '',
                 },
                 rules: {
                     username: [
@@ -41,8 +61,8 @@
                     password: [
                         { required: true, message: '请输入密码', trigger: 'change' }
                     ],
-
-                }
+                },
+                src: ''
             };
         },
         methods: {
@@ -64,7 +84,15 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
-            }
+            },
+            // refreshCaptcha: function () {
+            //     getImgCode().then((res) => {
+            //         console.log(res);
+            //         this.src = res.data.img;
+            //         //这个 登录携带的参数 根据key 要从redis中  获取正确的验证码运算结果
+            //         this.ruleForm.key = res.data.key;
+            //     });
+            // },
         }
     }
 </script>
