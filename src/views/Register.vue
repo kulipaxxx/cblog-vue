@@ -5,20 +5,20 @@
                 注册
             </el-header>
             <el-main>
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
                     <el-form-item label="用户名" prop="username">
                         <el-input v-model="ruleForm.username"></el-input>
                     </el-form-item>
                     <el-form-item label="密码" prop="password">
                         <el-input type="password" v-model="ruleForm.password"></el-input>
                     </el-form-item>
-                    <el-form-item>
-                        <img
-                                class="pointer"
-                                :src="src"
-                                alt=""
-                                @click="refreshCaptcha"
-                        />
+                    <el-form-item prop="code" label="验证码">
+                        <el-input v-model="ruleForm.code" auto-complete="off" placeholder="验证码" >
+
+                        </el-input>
+                        <div class="login-code">
+                            <img :src="src" @click="refreshCaptcha">
+                        </div>
                     </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
@@ -40,16 +40,18 @@
                 ruleForm: {
                     username: '',
                     password: '',
-                    key: '',
+                    code: '',
+                    uuid: ''
                 },
                 rules: {
                     username: [
-                        { required: true, message: '请输入用户名', trigger: 'blur' },
-                        { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                        {required: true, message: '请输入用户名', trigger: 'blur'},
+                        {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
                     ],
                     password: [
-                        { required: true, message: '请输入密码', trigger: 'change' }
+                        {required: true, message: '请输入密码', trigger: 'change'}
                     ],
+                    code: [{required: true, trigger: 'change', message: '验证码不能为空'}]
                 },
                 src: ''
             };
@@ -59,7 +61,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this;
-                        this.$axios.post('/register',this.ruleForm).then(res=>{
+                        this.$axios.post('/register', this.ruleForm).then(res => {
                             _this.$router.push("/login")
                         })
                     } else {
@@ -77,7 +79,7 @@
                     this.src = res.data.data.img;
                     console.log(this.src);
                     //这个 登录携带的参数 根据key 要从redis中  获取正确的验证码运算结果
-                    this.ruleForm.key = res.data.data.key;
+                    this.ruleForm.uuid = res.data.data.key;
                 });
             },
         },
@@ -85,6 +87,7 @@
             this.refreshCaptcha()
         }
     }
+
 </script>
 
 <style scoped>

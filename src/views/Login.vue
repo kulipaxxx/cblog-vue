@@ -12,21 +12,20 @@
                     <el-form-item label="密码" prop="password">
                         <el-input type="password" v-model="ruleForm.password"></el-input>
                     </el-form-item>
+                    <el-form-item prop="code" label="验证码">
+                        <el-input v-model="ruleForm.code" auto-complete="off" placeholder="验证码" >
+
+                        </el-input>
+                        <div class="login-code">
+                            <img :src="src" @click="refreshCaptcha">
+                        </div>
+                    </el-form-item>
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
                         <el-button @click="resetForm('ruleForm')">重置</el-button>
                         <el-button type="primary" @click="Register()">注册</el-button>
                     </el-form-item>
                 </el-form>
-                <!--<el-form-item>-->
-                    <!--<img-->
-                            <!--style="width: 85%; height: 35px; float: right"-->
-                            <!--class="pointer"-->
-                            <!--:src="src"-->
-                            <!--alt=""-->
-                            <!--@click="refreshCaptcha"-->
-                    <!--/>-->
-                <!--</el-form-item>-->
             </el-main>
         </el-container>
     </div>
@@ -40,9 +39,10 @@
         data() {
             return {
                 ruleForm: {
-                    username: 'cblog',
-                    password: '111111',
-                    key: '',
+                    username: '',
+                    password: '',
+                    code: '',
+                    uuid: ''
                 },
                 rules: {
                     username: [
@@ -52,6 +52,7 @@
                     password: [
                         { required: true, message: '请输入密码', trigger: 'change' }
                     ],
+                    code: [{required: true, trigger: 'change', message: '验证码不能为空'}]
                 },
                 src: ''
             };
@@ -80,14 +81,18 @@
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },
-            // refreshCaptcha: function () {
-            //     getImgCode().then((res) => {
-            //         console.log(res);
-            //         this.src = res.data.img;
-            //         //这个 登录携带的参数 根据key 要从redis中  获取正确的验证码运算结果
-            //         this.ruleForm.key = res.data.key;
-            //     });
-            // },
+            refreshCaptcha: function () {
+                this.$axios.get("/code").then((res) => {
+                    console.log(res);
+                    this.src = res.data.data.img;
+                    console.log(this.src);
+                    //这个 登录携带的参数 根据key 要从redis中  获取正确的验证码运算结果
+                    this.ruleForm.uuid = res.data.data.key;
+                });
+            },
+        },
+        created() {
+            this.refreshCaptcha()
         }
     }
 </script>
