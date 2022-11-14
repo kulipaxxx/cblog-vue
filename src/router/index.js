@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
-import BlogDetail from '../views/BlogDetails.vue'
-import BlogEdit from '../views/BlogEdit.vue'
-import UserSeeting from '../views/UserSetting'
-import Man from '../views/Manager'
+import BlogDetail from '../views/Blog/BlogDetails.vue'
+import BlogEdit from '../views/Blog/BlogEdit.vue'
+import UserSeeting from '../views/setting/UserSetting'
+import Man from '../views/setting/Manager'
 import Register from "../views/Register"
 
 Vue.use(VueRouter)
@@ -23,7 +23,7 @@ const routes = [
     path: '/blogs',
     name: 'Blogs',
     // 懒加载
-    component: () => import('../views/Blogs.vue')
+    component: () => import('../views/Blog/Blogs.vue')
   },
   {
     path: '/setting',

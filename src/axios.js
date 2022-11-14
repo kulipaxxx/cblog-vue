@@ -11,7 +11,9 @@ axios.interceptors.request.use(config => {
 })
 axios.interceptors.response.use(response => {
         const res = response.data;
-        console.log("后置拦截")
+        
+        console.log("后置拦截");
+        console.log(response.data);
         // 当结果的code是否为200的情况
         if (res.code === 200) {
             return response

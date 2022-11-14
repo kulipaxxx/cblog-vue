@@ -5,7 +5,7 @@
                 注册
             </el-header>
             <el-main>
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" size="small">
                     <el-form-item label="用户名" prop="username">
                         <el-input v-model="ruleForm.username"></el-input>
                     </el-form-item>
@@ -96,20 +96,20 @@
         color: #333;
         text-align: center;
         line-height: 60px;
+        width: 50%;
+        height: 70%;
+        margin: 0 auto;
     }
 
-    .el-aside {
-        /*background-color: #D3DCE6;*/
-        /*color: #333;*/
-        text-align: center;
-        line-height: 200px;
-    }
 
     .el-main {
-        /*background-color: #E9EEF3;*/
-        /*color: #333;*/
+        background-color: #E9EEF3;
+        color: #333;
         text-align: center;
-        line-height: 160px;
+        line-height: 60px;
+        width: 50%;
+        height: 70%;
+        margin: 0 auto;
     }
 
     /*body > .el-container {*/

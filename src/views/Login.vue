@@ -5,7 +5,7 @@
                 登录
             </el-header>
             <el-main>
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" size="mini">
                     <el-form-item label="用户名" prop="username">
                         <el-input v-model="ruleForm.username"></el-input>
                     </el-form-item>
@@ -66,7 +66,8 @@
                             const token = res.headers['authorization']
                             _this.$store.commit('SET_TOKEN', token)
                             _this.$store.commit('SET_USERINFO', res.data.data)
-
+                            console.log("============")
+                            console.log(res);
                             _this.$router.push("/blogs")
                         })
                     } else {
@@ -88,6 +89,7 @@
                     console.log(this.src);
                     //这个 登录携带的参数 根据key 要从redis中  获取正确的验证码运算结果
                     this.ruleForm.uuid = res.data.data.key;
+
                 });
             },
         },
@@ -103,6 +105,9 @@
         color: #333;
         text-align: center;
         line-height: 60px;
+        width: 50%;
+        height: 70%;
+        margin: 0 auto;
     }
 
     .el-aside {
@@ -113,10 +118,13 @@
     }
 
     .el-main {
-        /*background-color: #E9EEF3;*/
-        /*color: #333;*/
+        background-color: #E9EEF3;
+        color: #333;
         text-align: center;
-        line-height: 160px;
+        line-height: 60px;
+        width: 50%;
+        height: 70%;
+        margin: 0 auto;
     }
 
     /*body > .el-container {*/
