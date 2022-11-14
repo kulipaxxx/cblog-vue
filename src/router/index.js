@@ -6,6 +6,7 @@ import BlogEdit from '../views/Blog/BlogEdit.vue'
 import UserSeeting from '../views/setting/UserSetting'
 import Man from '../views/setting/Manager'
 import Register from "../views/Register"
+import Index from "@/views/User/Index"
 
 Vue.use(VueRouter)
 const routes = [
@@ -34,6 +35,11 @@ const routes = [
     path: '/man',
     name: 'Man',
     component: Man
+  },
+  {
+    path: '/index',
+    name: 'userIndex',
+    component: Index
   },
   {
     path: '/register',

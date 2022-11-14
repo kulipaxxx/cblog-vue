@@ -11,25 +11,25 @@
                 </div>
                 <div v-show="hasLogin">
                     <el-dropdown>
-                          <span class="el-dropdown-link">
+                        <span class="el-dropdown-link">
                             <el-avatar :size="50" :src="user.avatar"></el-avatar>
-                          </span>
-                        <el-dropdown-menu slot="dropdown" style="width: 100px;margin-right: -50px;text-align: center;">
+                        </span>
+                        <el-dropdown-menu slot="dropdown" style="width: 100px;margin-right: -20px;text-align: center;">
                             <el-dropdown-item>
                                 <el-link>
-                                    <el-link href="/blogs">主页</el-link>
+                                    <el-link href="/index">我的主页</el-link>
                                 </el-link>
                             </el-dropdown-item>
                             <el-dropdown-item>
                                 <el-link>
-                                    <el-link href="/setting">账号设置</el-link>
+                                    <el-link href="/setting">设置</el-link>
                                 </el-link>
                             </el-dropdown-item>
-                            <el-dropdown-item>
+                            <!-- <el-dropdown-item>
                                 <el-link>
                                     <el-link href="/man">管理博客</el-link>
                                 </el-link>
-                            </el-dropdown-item>
+                            </el-dropdown-item> -->
                             <el-dropdown-item>
                                 <el-link @click="logout">退出</el-link>
                             </el-dropdown-item>
@@ -90,13 +90,13 @@
 <style scoped>
 
     .m-content {
-        max-width: 960px;
+        max-width: 100%;
         margin: 0 auto;
         text-align: center;
     }
 
     .maction {
-        margin: 30px 0;
+        margin: 10px 0;
     }
 
     .el-dropdown-link {

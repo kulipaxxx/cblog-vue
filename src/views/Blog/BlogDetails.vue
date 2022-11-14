@@ -13,6 +13,7 @@
             <div class="markdown-body" v-html="blog.content"></div>
             <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
         </div>
+
         <Footer></Footer>
     </div>
 </template>
@@ -24,8 +25,7 @@
 
     export default {
         name: "BlogDetail.vue",
-        components: {Header},
-        components: {Footer},
+        components: {Header,Footer},
 
         data() {
             return {

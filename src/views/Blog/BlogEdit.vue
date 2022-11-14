@@ -35,8 +35,7 @@
 
     export default {
         name: "BlogEdit.vue",
-        components: {Header},
-        components: {Footer},
+        components: {Header,Footer},
 
         data() {
             return {

@@ -39,8 +39,8 @@
         data() {
             return {
                 ruleForm: {
-                    username: '',
-                    password: '',
+                    username: 'cblog',
+                    password: '111111',
                     code: '',
                     uuid: ''
                 },

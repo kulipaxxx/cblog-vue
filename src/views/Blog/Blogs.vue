@@ -1,10 +1,8 @@
-<template>
-    <div>
+<template>  
+    <div class="m">
         <Header></Header>
-
-        <div class="block">
-            <el-timeline>
-
+        <div class="content">
+            <el-timeline> 
                 <el-timeline-item :timestamp="blog.created" placement="top" v-for="(blog,index) in blogs" :key="index">
                     <el-card>
                         <h4>
@@ -26,7 +24,7 @@
                            :total="total"
                            @current-change=page>
             </el-pagination>
-        </div>
+        </div> 
         <Footer></Footer>
     </div>
 
@@ -72,4 +70,12 @@
         text-align: center;
     }
 
+    .content{
+        max-width: 960px;
+        background-color: white;
+        margin: 0 auto;
+    }
+    .m {
+        background-color: #f2f6fcaf;
+    }
 </style>
