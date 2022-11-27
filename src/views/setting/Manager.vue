@@ -47,6 +47,7 @@
 <script>
     import Header from '@/components/Header'
     import Footer from '@/components/Footer'
+    import {getIndex,deleteBlog} from "../../api/reception/blog/blog";
 
     export default {
         name: "Manager",
@@ -77,13 +78,13 @@
                 const b = this.blogs[id].id;
                 console.log(b);
                 const _this = this;
-                this.$axios.get('/blog/delete?id=' + b).then(res=>{
+                deleteBlog(b).then(res=>{
                     _this.$router.push("/blogs")
                 })
             },
-            page(currentPage,id) {
+            page(id, currentPage) {
                 const _this = this
-                _this.$axios.get("/blog/blogs?id=" + id + "&currentPage=" + currentPage).then(res => {
+                getIndex(id,currentPage).then(res => {
                     console.log(res)
                     _this.blogs = res.data.data.records
                     _this.currentPage = res.data.data.current

@@ -22,6 +22,7 @@
     import 'github-markdown-css'
     import Header from "@/components/Header";
     import Footer from "@/components/Footer";
+    import {getDetail} from "../../api/reception/blog/blog";
 
     export default {
         name: "BlogDetail.vue",
@@ -38,10 +39,11 @@
             }
         },
         created() {
-            const blogId = this.$route.params.blogId
-            console.log(blogId)
+            const id = this.$route.params.blogId
+            console.log(id)
             const _this = this
-            this.$axios.get('/blog/' + blogId).then(res => {
+            getDetail(id).then(res => {
+                console.log("进入博客详情")
                 const blog = res.data.data
                 _this.blog.id = blog.id
                 _this.blog.title = blog.title
@@ -61,9 +63,11 @@
 <style scoped>
     .mblog {
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-        width: 100%;
         min-height: 700px;
         padding: 20px 15px;
+        max-width: 960px;
+        background-color: white;
+        margin: 0 auto;
     }
 
 </style>

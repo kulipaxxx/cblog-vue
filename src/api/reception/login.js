@@ -30,3 +30,12 @@ export function register(username,password,code,uuid) {
         }
     })
 }
+export function logout() {
+    return request({
+        url: 'auth/logout',
+        method: 'post',
+        headers: {
+            "Authorization": localStorage.getItem("token")
+        }
+    })
+}

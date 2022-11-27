@@ -1,20 +1,37 @@
 <template>
-    <div>
-        <el-container>
-            <el-header>
-                注册
-            </el-header>
-            <el-main>
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" size="small">
-                    <el-form-item label="用户名" prop="username">
-                        <el-input v-model="ruleForm.username"></el-input>
+    <div id="app">
+        <div id="admin">
+            <div class="pos" v-loading="loading">
+                <h1 class="adminh1">用户登录</h1>
+                <el-form
+                        :model="ruleForm"
+                        status-icon
+                        :rules="rules"
+                        ref="ruleForm"
+                        label-width="100px"
+                        class="demo-ruleForm"
+                >
+                    <el-form-item label="用户名：" prop="username">
+                        <el-input
+                                prefix-icon="el-icon-user"
+                                style="width: 250px"
+                                type="text"
+                                v-model="ruleForm.username"
+                                autocomplete="off"
+                        ></el-input>
                     </el-form-item>
-                    <el-form-item label="密码" prop="password">
-                        <el-input type="password" v-model="ruleForm.password"></el-input>
+                    <el-form-item label="密 码：" prop="password">
+                        <el-input
+                                prefix-icon="el-icon-menu"
+                                style="width: 250px"
+                                show-password
+                                type="password"
+                                v-model="ruleForm.password"
+                                autocomplete="off"
+                        ></el-input>
                     </el-form-item>
                     <el-form-item prop="code" label="验证码">
-                        <el-input v-model="ruleForm.code" auto-complete="off" placeholder="验证码" >
-
+                        <el-input v-model="ruleForm.code" auto-complete="off" placeholder="验证码" style="width: 250px">
                         </el-input>
                         <div class="login-code">
                             <img :src="src" @click="refreshCaptcha">
@@ -23,13 +40,14 @@
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
                         <el-button @click="resetForm('ruleForm')">重置</el-button>
-                        <el-button type="primary" @click="submitFormToLogin()">登录</el-button>
                     </el-form-item>
+                    <div class="tips">
+                        <span style="margin-right:20px;">如果您已有账号请 <button style="background-color: white;color:#409EFF;cursor:pointer;border: 0px" @click="toLogin">登录</button></span>
+                    </div>
                 </el-form>
-            </el-main>
-        </el-container>
+            </div>
+        </div>
     </div>
-
 </template>
 
 <script>
@@ -39,6 +57,7 @@
 
         data() {
             return {
+                loading: false,
                 ruleForm: {
                     username: '',
                     password: '',
@@ -72,7 +91,7 @@
                     }
                 });
             },
-            submitFormToLogin() {
+            toLogin() {
                 this.$router.push({
                     path: "/login",
                 })
@@ -98,37 +117,47 @@
 </script>
 
 <style scoped>
-    .el-header, .el-footer {
-        background-color: #B3C0D1;
-        color: #333;
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    body {
+        background: rgb(135, 206, 235);
+    }
+    #app {
+        font-family: "Avenir", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #2c3e50;
+    }
+    #admin {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -200px;
+        margin-left: -250px;
+        width: 500px;
+        height: 470px;
+        background: #fff;
+        border-radius: 10%;
+        box-shadow: 8px 10px 10px rgb(177, 223, 242);
+    }
+    .adminh1 {
+        margin: 20px 0;
+        text-shadow: 10px 13px 3px rgb(207, 207, 207);
         text-align: center;
-        line-height: 60px;
-        width: 50%;
-        height: 70%;
-        margin: 0 auto;
     }
-
-
-    .el-main {
-        background-color: #E9EEF3;
-        color: #333;
+    .pos {
+        width: 450px;
+        height: 350px;
+        position: absolute;
+        top: 25px;
+        left: 25px;
+    }
+    .tips {
+        background-color: white;
+        font-size: 18px;
         text-align: center;
-        line-height: 60px;
-        width: 50%;
-        height: 70%;
-        margin: 0 auto;
-    }
-
-    /*body > .el-container {*/
-    /*margin-bottom: 40px;*/
-    /*}*/
-
-    .el-container:nth-child(5) .el-aside,
-    .el-container:nth-child(6) .el-aside {
-        line-height: 260px;
-    }
-
-    .el-container:nth-child(7) .el-aside {
-        line-height: 320px;
+        margin-bottom: 10px;
     }
 </style>

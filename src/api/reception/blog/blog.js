@@ -23,11 +23,8 @@ export function getIndex(id, currentPage) {
 
 export function getDetail(id) {
     return request({
-        url: 'api/blog/detail',
+        url: 'api/blog/detail/'+ id,
         method: 'get',
-        data: {
-            id
-        }
     })
 }
 
@@ -43,6 +40,15 @@ export function editBlog(id, title, description, content) {
         },
         headers: {
             "Authorization": localStorage.getItem("token")
+        }
+    })
+}
+export function deleteBlog(id) {
+    return request({
+        url: 'api/blog',
+        method: 'delete',
+        data: {
+            id
         }
     })
 }

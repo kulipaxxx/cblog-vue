@@ -50,6 +50,8 @@
 </template>
 
 <script>
+    import {logout} from "../api/reception/login";
+
     export default {
         name: "Header",
         data() {
@@ -64,11 +66,7 @@
         methods: {
             logout() {
                 const _this = this
-                _this.$axios.post("logout", {
-                    headers: {
-                        "Authorization": localStorage.getItem("token")
-                    }
-                }).then(res => {
+                logout().then(res => {
                     _this.$store.commit("REMOVE_INFO")
                     _this.$router.push("/login")
                 })
