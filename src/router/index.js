@@ -6,14 +6,20 @@ import BlogEdit from '../views/Blog/BlogEdit.vue'
 import UserSeeting from '../views/setting/UserSetting'
 import Man from '../views/setting/Manager'
 import Register from "../views/Register"
-import Index from "@/views/User/Index"
+import Index from '@/views/User/Index'
+import adminLogin from '@/adminViews/login'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
     name: 'Index',
     redirect: { name: 'Blogs' }
+  },
+  {
+    path: '/admin',
+    name: 'adminLogin',
+    component: adminLogin
   },
   {
     path: '/login',

@@ -55,7 +55,7 @@
                         { required: true, message: '请输入摘要', trigger: 'blur' }
                     ],
                     content: [
-                        { trequired: true, message: '请输入内容', trigger: 'blur' }
+                        { required: true, message: '请输入内容', trigger: 'blur' }
                     ]
                 }
             };
@@ -65,15 +65,13 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this
-                        editBlog(this.ruleForm).then(res => {
-                            console.log(res)
+                        editBlog(this.ruleForm.id,this.ruleForm.title,this.ruleForm.description,this.ruleForm.content).then(res => {
                             _this.$alert('操作成功', '提示', {
                                 confirmButtonText: '确定',
                                 callback: action => {
                                     _this.$router.push("/blogs")
                                 }
                             });
-
                         })
 
                     } else {

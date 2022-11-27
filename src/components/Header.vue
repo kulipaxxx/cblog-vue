@@ -4,10 +4,12 @@
         <el-menu mode="horizontal">
             <el-menu-item index="1"><a href="/"><img src="../assets/logo.gif" alt="" style="height: 50px"></a>
             </el-menu-item>
-            <el-menu-item index="2"><a href="/blogs">首页</a></el-menu-item>
-            <el-menu-item index="6" style="float: right;">
+            <el-menu-item index="2"><a href="/blogs" style="text-decoration: none">首页</a></el-menu-item>
+            <el-menu-item index="3"><a href="/" style="text-decoration: none">归档</a></el-menu-item>
+            <el-menu-item index="4"><a href="/" style="text-decoration: none">关于</a></el-menu-item>
+            <el-menu-item index="5" style="float: right;">
                 <div v-show="!hasLogin">
-                    <span><el-link href="/login">登录</el-link></span>
+                    <span><el-link href="/login" style="text-decoration: none">登录</el-link></span>
                 </div>
                 <div v-show="hasLogin">
                     <el-dropdown>
@@ -39,11 +41,12 @@
             </el-menu-item>
         </el-menu>
 
+        <div style="margin: 10px 0"></div>
 
         <div class="maction">
-            <!--<div class="block">-->
-            <!--<h1>欢迎你{{ user.username }}</h1>-->
-            <!--</div>-->
+            <el-button plain @click="open">
+                公告
+            </el-button>
         </div>
 
     </div>
@@ -65,11 +68,19 @@
         },
         methods: {
             logout() {
-                const _this = this
+                const _this = this;
                 logout().then(res => {
                     _this.$store.commit("REMOVE_INFO")
                     _this.$router.push("/login")
                 })
+            },
+            open() {
+                this.$notify({
+                    title: '公告',
+                    message: '暂时还没有公告哦',
+                    offset: 100,
+                    duration: 3500
+                });
             }
         },
         created() {
@@ -94,7 +105,8 @@
     }
 
     .maction {
-        margin: 10px 0;
+        float: right;
+        width: 60px;
     }
 
     .el-dropdown-link {

@@ -4,16 +4,24 @@
         <div class="content">
             <el-timeline>
                 <el-timeline-item :timestamp="blog.created" placement="top" v-for="(blog,index) in blogs" :key="index">
-                    <el-card>
-                        <h4>
-                            <router-link :to="{name: 'BlogDetail', params: {blogId: blog.id}}">
-                                {{blog.title}}
-                            </router-link>
-                        </h4>
-                        <p>{{blog.description}}</p>
+                    <el-card style="width: 100%;height: 140px">
+                        <div>
+                            <img src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+                                 style="float: left;height: 100px;">
+                        </div>
+                        <div style="line-height: 18px;">
+                            <h4>
+                                <router-link :to="{name: 'BlogDetail', params: {blogId: blog.id}}">
+                                    {{blog.title}}
+                                </router-link>
+                            </h4>
+                            <p>
+                                {{blog.description}}
+                            </p>
+                        </div>
+
                     </el-card>
                 </el-timeline-item>
-
             </el-timeline>
 
             <el-pagination class="mpage"

@@ -30,8 +30,17 @@
                                 autocomplete="off"
                         ></el-input>
                     </el-form-item>
+                    <el-form-item label="邮 箱：" prop="email">
+                        <el-input
+                                prefix-icon="el-icon-s-comment"
+                                style="width: 250px"
+                                type="email"
+                                v-model="ruleForm.email"
+                                autocomplete="off"
+                        ></el-input>
+                    </el-form-item>
                     <el-form-item prop="code" label="验证码">
-                        <el-input v-model="ruleForm.code" auto-complete="off" placeholder="验证码" style="width: 250px">
+                        <el-input prefix-icon="el-icon-star-on" v-model="ruleForm.code" auto-complete="off" placeholder="验证码" style="width: 250px">
                         </el-input>
                         <div class="login-code">
                             <img :src="src" @click="refreshCaptcha">
@@ -42,7 +51,7 @@
                         <el-button @click="resetForm('ruleForm')">重置</el-button>
                     </el-form-item>
                     <div class="tips">
-                        <span style="margin-right:20px;">如果您已有账号请 <button style="background-color: white;color:#409EFF;cursor:pointer;border: 0px" @click="toLogin">登录</button></span>
+                        <span style="margin-right:20px;font-size: 16px">如果您已有账号请 <button style="background-color: white;color:#409EFF;cursor:pointer;border: 0px" @click="toLogin">登录</button></span>
                     </div>
                 </el-form>
             </div>
@@ -61,8 +70,9 @@
                 ruleForm: {
                     username: '',
                     password: '',
+                    email: '',
                     code: '',
-                    uuid: ''
+                    uuid: '',
                 },
                 rules: {
                     username: [
@@ -70,9 +80,14 @@
                         {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
                     ],
                     password: [
-                        {required: true, message: '请输入密码', trigger: 'change'}
+                        {required: true, message: '请输入密码', trigger: 'change'},
+                        {min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur'}
                     ],
-                    code: [{required: true, trigger: 'change', message: '验证码不能为空'}]
+                    email: [{ required: true, message: '请输入邮箱地址', trigger: 'blur' },
+                        { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
+                    ],
+                    code: [{required: true, trigger: 'change', message: '验证码不能为空'}
+                    ]
                 },
                 src: ''
             };
@@ -82,7 +97,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this;
-                        register(this.ruleForm.username,this.ruleForm.password,this.ruleForm.code,this.ruleForm.uuid).then(res => {
+                        register(this.ruleForm.username,this.ruleForm.password,this.ruleForm.email,this.ruleForm.code,this.ruleForm.uuid).then(res => {
                             _this.$router.push("/login")
                         })
                     } else {
@@ -132,12 +147,12 @@
     }
     #admin {
         position: absolute;
-        top: 50%;
+        top: 40%;
         left: 50%;
         margin-top: -200px;
         margin-left: -250px;
         width: 500px;
-        height: 470px;
+        height: 550px;
         background: #fff;
         border-radius: 10%;
         box-shadow: 8px 10px 10px rgb(177, 223, 242);

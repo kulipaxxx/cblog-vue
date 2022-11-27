@@ -18,13 +18,14 @@ export function code() {
         method: 'get',
     })
 }
-export function register(username,password,code,uuid) {
+export function register(username,password,email,code,uuid) {
     return request({
         url: 'auth/register',
         method: 'post',
         data:{
             username,
             password,
+            email,
             code,
             uuid
         }

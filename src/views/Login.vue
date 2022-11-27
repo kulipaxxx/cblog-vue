@@ -42,7 +42,8 @@
                         <el-button @click="resetForm('ruleForm')">重置</el-button>
                     </el-form-item>
                     <div class="tips">
-                        <span style="margin-right:20px;">如果您还没有账号请先 <button style="background-color: white;color:#409EFF;cursor:pointer;border: 0px" @click="Register">注册</button></span>
+                        <span style="margin-right:20px;font-size: 16px">如果您还没有账号请先 <button style="background-color: white;color:#409EFF;cursor:pointer;border: 0px" @click="Register">注册</button></span>
+                        <span style="margin-right:20px;"><button style="background-color: white;color:#409EFF;cursor:pointer;border: 0px" @click="Register">忘记密码？</button></span>
                     </div>
                 </el-form>
             </div>
@@ -72,7 +73,8 @@
                     password: [
                         { required: true, message: '请输入密码', trigger: 'change' }
                     ],
-                    code: [{required: true, trigger: 'change', message: '验证码不能为空'}]
+                    code: [{required: true, trigger: 'change', message: '验证码不能为空'}
+                    ],
                 },
                 src: ''
             };
@@ -137,12 +139,12 @@
     }
     #admin {
         position: absolute;
-        top: 50%;
+        top: 40%;
         left: 50%;
         margin-top: -200px;
         margin-left: -250px;
         width: 500px;
-        height: 470px;
+        height: 550px;
         background: #fff;
         border-radius: 10%;
         box-shadow: 8px 10px 10px rgb(177, 223, 242);
