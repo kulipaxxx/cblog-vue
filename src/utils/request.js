@@ -1,8 +1,13 @@
 import axios from 'axios'
 import Element from "element-ui";
-import store from "./store";
-import router from "./router";
-axios.defaults.baseURL='http://localhost:8081';
+import store from "@/store";
+import router from "@/router";
+
+// 创建axios实例
+const service = axios.create({
+  baseURL: 'http://localhost:8081', // api 的 base_url
+  timeout: '3000' // 请求超时时间
+})
 
 axios.interceptors.request.use(config => {
     console.log("前置拦截")
@@ -11,7 +16,7 @@ axios.interceptors.request.use(config => {
 })
 axios.interceptors.response.use(response => {
         const res = response.data;
-        
+
         console.log("后置拦截");
         console.log(response.data);
         // 当结果的code是否为200的情况
@@ -30,8 +35,8 @@ axios.interceptors.response.use(response => {
     },
     error => {
         console.log('err' + error)// for debug
-        if(error.response.data) {
-            error.message = error.response.data.msg
+        if (error.response.data) {
+            error.message = error.response.data.msg
         }
         // 根据请求状态觉得是否登录或者提示其他
         if (error.response.status === 401) {
@@ -50,4 +55,5 @@ axios.interceptors.response.use(response => {
             duration: 3 * 1000
         })
         return Promise.reject(error)
-    })
+})
+export default service

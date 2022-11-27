@@ -33,6 +33,7 @@
 </template>
 
 <script>
+    import {register,code} from "../api/reception/login";
     export default {
         name: "Register",
 
@@ -62,7 +63,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this;
-                        this.$axios.post('/register', this.ruleForm).then(res => {
+                        register(this.ruleForm.username,this.ruleForm.password,this.ruleForm.code,this.ruleForm.uuid).then(res => {
                             _this.$router.push("/login")
                         })
                     } else {
@@ -80,7 +81,7 @@
                 this.$refs[formName].resetFields();
             },
             refreshCaptcha: function () {
-                this.$axios.get("/code").then((res) => {
+                code().then((res) => {
                     console.log(res);
                     this.src = res.data.data.img;
                     console.log(this.src);

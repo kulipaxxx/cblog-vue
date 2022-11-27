@@ -1,8 +1,8 @@
-<template>  
+<template>
     <div class="m">
         <Header></Header>
         <div class="content">
-            <el-timeline> 
+            <el-timeline>
                 <el-timeline-item :timestamp="blog.created" placement="top" v-for="(blog,index) in blogs" :key="index">
                     <el-card>
                         <h4>
@@ -24,7 +24,7 @@
                            :total="total"
                            @current-change=page>
             </el-pagination>
-        </div> 
+        </div>
         <Footer></Footer>
     </div>
 
@@ -33,6 +33,8 @@
 <script>
     import Header from "@/components/Header";
     import Footer from "@/components/Footer";
+    import {getblogs} from "../../api/reception/blog/blog";
+
     export default {
         name: "Blogs.vue",
         components: {Header,Footer},
@@ -47,7 +49,8 @@
         methods: {
             page(currentPage) {
                 const _this = this
-                _this.$axios.get("/blog/blogs?currentPage=" + currentPage).then(res => {
+                console.log("进入博客页面")
+                getblogs(currentPage).then(res => {
                     console.log(res)
                     _this.blogs = res.data.data.records
                     _this.currentPage = res.data.data.current
@@ -73,6 +76,7 @@
     .content{
         max-width: 960px;
         background-color: white;
+        height: 960px;
         margin: 0 auto;
     }
     .m {

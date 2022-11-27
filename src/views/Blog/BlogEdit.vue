@@ -32,6 +32,7 @@
 <script>
     import Header from "@/components/Header.vue";
     import Footer from "@/components/Footer.vue";
+    import {editBlog,getDetail} from "../../api/reception/blog/blog";
 
     export default {
         name: "BlogEdit.vue",
@@ -64,11 +65,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this
-                        this.$axios.post('/blog/edit', this.ruleForm, {
-                            headers: {
-                                "Authorization": localStorage.getItem("token")
-                            }
-                        }).then(res => {
+                        editBlog(this.ruleForm).then(res => {
                             console.log(res)
                             _this.$alert('操作成功', '提示', {
                                 confirmButtonText: '确定',
@@ -95,7 +92,7 @@
             const _this = this;
             if(blogId1 || blogId2) {
                 let blogId = blogId1 ? blogId1 : blogId2;
-                this.$axios.get('/blog/' + blogId).then(res => {
+                getDetail(blogId).then(res => {
                     const blog = res.data.data
                     _this.ruleForm.id = blog.id
                     _this.ruleForm.title = blog.title

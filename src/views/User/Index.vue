@@ -72,6 +72,8 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import {genUpToken} from "@/common/qiniuToken"
+import {getIndex} from "../../api/reception/blog/blog";
+
 export default {
   name: "Index",
   components: { Header, Footer },
@@ -95,10 +97,9 @@ export default {
     };
   },
   methods: {
-    page(currentPage, id) {
+    page(id,currentPage) {
       const _this = this;
-      _this.$axios
-        .get("/blog/blogs?id=" + id + "&currentPage=" + currentPage)
+      getIndex(id, currentPage)
         .then((res) => {
           console.log(res);
           _this.blogs = res.data.data.records;
@@ -151,7 +152,7 @@ export default {
     token = genUpToken(AK, SK, policy);
     this.postData.token = token;
   },
-  
+
 };
 </script>
 

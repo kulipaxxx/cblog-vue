@@ -33,6 +33,8 @@
 </template>
 
 <script>
+    import {login,code} from "../api/reception/login";
+
     export default {
         name: "Login",
 
@@ -62,7 +64,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this;
-                        this.$axios.post('/login',this.ruleForm).then(res=>{
+                        login(this.ruleForm.username,this.ruleForm.password,this.ruleForm.code,this.ruleForm.uuid).then(res=>{
                             const token = res.headers['authorization']
                             _this.$store.commit('SET_TOKEN', token)
                             _this.$store.commit('SET_USERINFO', res.data.data)
@@ -83,13 +85,14 @@
                 this.$refs[formName].resetFields();
             },
             refreshCaptcha: function () {
-                this.$axios.get("/code").then((res) => {
+                code("/auth/code").then((res) => {
+                    console.log("进入code");
+
                     console.log(res);
                     this.src = res.data.data.img;
                     console.log(this.src);
                     //这个 登录携带的参数 根据key 要从redis中  获取正确的验证码运算结果
                     this.ruleForm.uuid = res.data.data.key;
-
                 });
             },
         },
