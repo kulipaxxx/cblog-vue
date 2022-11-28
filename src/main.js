@@ -6,12 +6,12 @@ import Element from 'element-ui'
 import axios from 'axios'
 
 //引入Bootstrap
-import BootstrapVue from 'bootstrap-vue'
+// import BootstrapVue from 'bootstrap-vue'
 
-Vue.use(BootstrapVue)
+// Vue.use(BootstrapVue)
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 //引入markdown
 import mavonEditor from 'mavon-editor'
@@ -19,13 +19,18 @@ import mavonEditor from 'mavon-editor'
 import "element-ui/lib/theme-chalk/index.css"
 import 'mavon-editor/dist/css/index.css'
 
-import "./store/modules/permission"
+//引入axios前置后置拦截
+import request from "./utils/request.js"
+
+//引入权限拦截
+import "./store/modules/permission.js"
 
 Vue.use(Element)
 Vue.use(mavonEditor)
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
+Vue.prototype.request=request
 
 new Vue({
   router,

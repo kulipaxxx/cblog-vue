@@ -43,7 +43,7 @@
                     </el-form-item>
                     <div class="tips">
                         <span style="margin-right:20px;font-size: 16px">如果您还没有账号请先 <button style="background-color: white;color:#409EFF;cursor:pointer;border: 0px" @click="Register">注册</button></span>
-                        <span style="margin-right:20px;"><button style="background-color: white;color:#409EFF;cursor:pointer;border: 0px" @click="Register">忘记密码？</button></span>
+                        <span style="margin-right:20px;"><button style="background-color: white;color:#409EFF;cursor:pointer;border: 0px" @click="findPwd">忘记密码？</button></span>
                     </div>
                 </el-form>
             </div>
@@ -101,6 +101,9 @@
             Register(){
                 this.$router.push("/register");
             },
+            findPwd(){
+                this.$router.push("/getPwd");
+            },  
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },

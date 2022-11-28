@@ -8,7 +8,8 @@ import Man from '../views/setting/Manager'
 import Register from "../views/Register"
 import Index from '@/views/User/Index'
 import adminLogin from '@/adminViews/login'
-
+import getPwd from '@/views/getPwd'
+import archivePage from '@/views/file/archivePage'
 Vue.use(VueRouter);
 const routes = [
   {
@@ -51,6 +52,16 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/getPwd',
+    name: 'findPwd',
+    component: getPwd
+  },
+  {
+    path: '/archivePage',
+    name: 'archivePage',
+    component: archivePage
   },
   {
     path: '/blog/add', // 注意放在 path: '/blog/:blogId'之前

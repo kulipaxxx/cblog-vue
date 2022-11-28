@@ -5,8 +5,8 @@
             <el-menu-item index="1"><a href="/"><img src="../assets/logo.gif" alt="" style="height: 50px"></a>
             </el-menu-item>
             <el-menu-item index="2"><a href="/blogs" style="text-decoration: none">首页</a></el-menu-item>
-            <el-menu-item index="3"><a href="/" style="text-decoration: none">归档</a></el-menu-item>
-            <el-menu-item index="4"><a href="/" style="text-decoration: none">关于</a></el-menu-item>
+            <el-menu-item index="3" v-show="hasLogin"><a href="/archivePage" style="text-decoration: none">归档</a></el-menu-item>
+            <el-menu-item index="4" v-show="hasLogin"><a href="/" style="text-decoration: none">关于</a></el-menu-item>
             <el-menu-item index="5" style="float: right;">
                 <div v-show="!hasLogin">
                     <span><el-link href="/login" style="text-decoration: none">登录</el-link></span>
@@ -79,12 +79,13 @@
                     title: '公告',
                     message: '暂时还没有公告哦',
                     offset: 100,
-                    duration: 3500
+                    duration: 3500,
+                    showClose: false
                 });
             }
         },
         created() {
-            if (this.$store.getters.getUser.username) {
+            if (this.$store.getters.getUser) {
                 this.user.username = this.$store.getters.getUser.username;
                 if (this.$store.getters.getUser.avatar != null)
                     this.user.avatar = this.$store.getters.getUser.avatar

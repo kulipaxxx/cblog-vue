@@ -82,9 +82,11 @@
 
                 var result = md.render(blog.content)
                 this.blog.content = result
-                this.ownBlog = (blog.userId === this.$store.getters.getUser.id)
+                if(this.$store.getters.getUser != null)
+                    this.ownBlog = (blog.userId === this.$store.getters.getUser.id)
             })
-            getRelation(id,this.$store.getters.getUser.id).then(res=>{ //查询当前用户是否点赞
+            if(this.$store.getters.getUser != null){
+                getRelation(id,this.$store.getters.getUser.id).then(res=>{ //查询当前用户是否点赞
                 console.log(id);
                 console.log(this.$store.getters.getUser.id);
                 console.log("是否点赞：" + res.data.data);
@@ -95,10 +97,12 @@
                 else
                     this.hasLike = false;
             });
+            }
             likeCount(id).then(res=>{ //查询点赞数量
                 console.log(res)
                 if (res.data.data.count != null)
                     this.count = res.data.data.count
+                console.log(this.count)
             })
         }
     }

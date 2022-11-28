@@ -2,7 +2,7 @@
     <div id="app">
         <div id="admin">
             <div class="pos" v-loading="loading">
-                <h1 class="adminh1">用户登录</h1>
+                <h1 class="adminh1">注册账号</h1>
                 <el-form
                         :model="ruleForm"
                         status-icon

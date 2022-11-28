@@ -4,23 +4,30 @@ import store from "@/store";
 import router from "@/router";
 
 // 创建axios实例
-const service = axios.create({
+const request = axios.create({
   baseURL: 'http://localhost:8081', // api 的 base_url
   timeout: '3000' // 请求超时时间
 })
 
-axios.interceptors.request.use(config => {
+request.interceptors.request.use(config => {
     console.log("前置拦截")
     // 可以统一设置请求头
     return config
 })
-axios.interceptors.response.use(response => {
+request.interceptors.response.use(response => {
         const res = response.data;
 
-        console.log("后置拦截");
+        console.log("后置拦截:");
         console.log(response.data);
         // 当结果的code是否为200的情况
         if (res.code === 200) {
+            if(response.data.msg){
+                Element.Message({
+                    message: response.data.msg,
+                    type: 'success',
+                    duration: 2 * 1000
+                })
+            }
             return response
         } else {
             // 弹窗异常信息
@@ -56,4 +63,4 @@ axios.interceptors.response.use(response => {
         })
         return Promise.reject(error)
 })
-export default service
+export default request
