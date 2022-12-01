@@ -10,8 +10,14 @@ import Index from '@/views/User/Index'
 import adminLogin from '@/adminViews/login'
 import getPwd from '@/views/getPwd'
 import archivePage from '@/views/file/archivePage'
+import test from '@/views/test'
 Vue.use(VueRouter);
 const routes = [
+  {
+    path: '/test',
+    name: 'test',
+    component: test
+  },
   {
     path: '/',
     name: 'Index',

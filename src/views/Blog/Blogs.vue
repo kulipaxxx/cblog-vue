@@ -64,7 +64,6 @@
                     _this.currentPage = res.data.data.current
                     _this.total = res.data.data.total
                     _this.pageSize = res.data.data.size
-
                 })
             }
         },
