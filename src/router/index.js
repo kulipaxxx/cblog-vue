@@ -11,6 +11,7 @@ import adminLogin from '@/adminViews/login'
 import getPwd from '@/views/getPwd'
 import archivePage from '@/views/file/archivePage'
 import test from '@/views/test'
+
 Vue.use(VueRouter);
 const routes = [
   {
@@ -32,6 +33,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/adminIndex',
+    name: 'adminIndex',
+    component: () => import('../adminViews/admin.vue')
   },
   {
     path: '/blogs',
