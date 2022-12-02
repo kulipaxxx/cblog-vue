@@ -103,6 +103,7 @@
         max-width: 100%;
         margin: 0 auto;
         text-align: center;
+        /*position: fixed;*/
     }
 
     .maction {

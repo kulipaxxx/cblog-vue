@@ -1,64 +1,48 @@
 <!-- 吸顶 -->
 <template>
-    <div class="scroll">
-        <div class="nav" :class="navBarFixed == true ? 'navBarWrap' :''">吸顶导航</div>
-        <div class="header">22</div>
+    <div class="about">
+        <!-- 导航 -->
+        <div class="box">
+            <!--<div class="wrap">-->
+                <ul>
+                    <li @click="skipTo('#profile')">公司简介</li>
+                </ul>
+            <!--</div>-->
+        </div>
     </div>
+
 </template>
 
 <script>
     export default {
-        name: 'test',
-        data() {
-            return {
-                navBarFixed: false,
-            };
-        },
-
-        components: {},
-
-        mounted() {
-            window.addEventListener("scroll", this.watchScroll);
-        },
-
-        methods: {
-            watchScroll() {
-                var scrollTop =
-                    window.pageYOffset ||
-                    document.documentElement.scrollTop ||
-                    document.body.scrollTop;
-                console.log(scrollTop)
-                //  当滚动超过 90 时，实现吸顶效果
-                if (scrollTop > 20) {
-                    this.navBarFixed = true;
-                } else {
-                    this.navBarFixed = false;
+        mounted () {
+            // 监听滚动事件
+            // 监听事件
+            window.addEventListener('scroll', function(){
+                let t = $('body, html').scrollTop();   // 目前监听的是整个body的滚动条距离
+                if(t>0){
+                    $('.box').addClass('box-active')
+                }else{
+                    $('.box').removeClass('box-active')
                 }
-            }
-        }
-    };
+            })
+            this.getData()
+        },
+    }
+
 </script>
 <style scoped>
-    .scroll{
-        height:1000px;
-    }
-    .nav{
-        padding:15px;
-        width:100%;
-        box-sizing: border-box;
-        background:greenyellow;
-        text-align: center;
-    }
-    .navBarWrap {
+    .box{
         position: fixed;
-        top:0;
-        /*z-index:999;*/
+        height: 80px;
+        width: 100%;
+        z-index: 999;
+        min-height: 1000px;
     }
+    /*监听到滚动条开始滚动后的样式*/
+       .box-active{
+           position: fixed;
+           top: 0;
+       }
 
-    .header {
-        height: 90px;
-        background: red;
-        text-align: center;
-        color: #fff;
-    }
 </style>
