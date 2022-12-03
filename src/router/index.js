@@ -25,19 +25,9 @@ const routes = [
     redirect: { name: 'Blogs' }
   },
   {
-    path: '/admin',
-    name: 'adminLogin',
-    component: adminLogin
-  },
-  {
     path: '/login',
     name: 'Login',
     component: Login
-  },
-  {
-    path: '/adminIndex',
-    name: 'adminIndex',
-    component: () => import('../adminViews/admin.vue')
   },
   {
     path: '/blogs',
@@ -97,9 +87,35 @@ const routes = [
     component: BlogEdit
   }
 ];
+const routesAdmin = [
+  {
+    path: '/404',
+    name: 'NotFound',
+    meta: {
+      title: 'Page not found',
+      isLogin: false
+    },
+    component: () => import('@/adminViews/404.vue')
+  },
+  // 所有未定义路由，全部重定向到404页
+  {
+    path: '*',
+    redirect: '/404'
+  },
+  {
+    path: '/admin',
+    name: 'adminLogin',
+    component: adminLogin
+  },
+  {
+    path: '/layout',
+    name: 'layout',
+    component: () => import('@/adminViews/layout/index.vue')
+  },
+];
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes: routes,routesAdmin
 });
 export default router
