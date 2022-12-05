@@ -1,0 +1,38 @@
+
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: inherit;
+  }
+  
+  html {
+    height: 100%;
+    box-sizing: border-box;
+  }
+  
+  body {
+    height: 100%;
+    // 字体抗锯齿,使用后字体看起来会更清晰舒服
+    font-size: 14px;
+    color: #58666e;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  }
+  a,
+  a:focus,
+  a:hover {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+  }
+  
+  div:focus {
+    outline: none;
+  }

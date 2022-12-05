@@ -1,23 +1,23 @@
 <template>
     <div v-loading="loading" element-loading-text="登录中..." element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.6)" class="login-container">
-   
+
       <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
         <!-- 头像区域 -->
         <div v-if="TxStatus" class="avatar-box">
           <img src="@/assets/logo.gif" alt="">
         </div>
-   
+
         <div class="title-container">
           <h3 class="title">后台管理系统</h3>
         </div>
-   
+
         <el-form-item prop="username">
           <span class="svg-container">
             <i class="el-icon-lock"></i>
           </span>
           <el-input ref="username" v-model="loginForm.username" placeholder="Username" name="username" type="text" tabindex="1" auto-complete="on" />
         </el-form-item>
-   
+
         <el-form-item prop="password">
           <span class="svg-container">
             <i class="el-icon-lock"></i>
@@ -31,17 +31,17 @@
           <el-button type="primary" style="width:100%;margin-bottom:20px;" @click.native.prevent="handleLogin">登录</el-button>
         </div>
         <div class="tips">
-          <span style="margin-right:20px;"></span>
+          <!--<span style="margin-right:20px;"></span>-->
         </div>
-   
+
       </el-form>
     </div>
   </template>
-   
+
   <script>
   // 引入去除空格工具
   import { validUsername } from '@/utils/validate'
-   
+
   export default {
     name: 'Login',
     data() {
@@ -123,7 +123,7 @@
     }
   }
   </script>
-   
+
   <style lang="scss">
   $bg: #283443;
   $light_gray: #fff;
@@ -138,7 +138,7 @@
       display: inline-block;
       height: 47px;
       width: 85%;
-   
+
       input {
         background: transparent;
         border: 0px;
@@ -148,14 +148,14 @@
         color: $light_gray;
         height: 47px;
         caret-color: $cursor;
-   
+
         &:-webkit-autofill {
           box-shadow: 0 0 0px 1000px $bg inset !important;
           -webkit-text-fill-color: $cursor !important;
         }
       }
     }
-   
+
     .el-form-item {
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(0, 0, 0, 0.1);
@@ -164,12 +164,12 @@
     }
   }
   </style>
-   
+
   <style lang="scss" scoped>
   $bg: #2d3a4b;
   $dark_gray: #889aa4;
   $light_gray: #eee;
-   
+
   .login-container {
     overflow: hidden;
     min-height: 100%;
@@ -193,7 +193,7 @@
         border-radius: 50%;
       }
     }
-   
+
     .login-form {
       position: relative;
       width: 520px;
@@ -201,16 +201,17 @@
       padding: 160px 35px 0;
       margin: 0 auto;
       overflow: hidden;
-   
+
     }
-   
+
     .tips {
       font-size: 18px;
       text-align: center;
       color: #000;
       margin-bottom: 10px;
+      height: 14px;
     }
-   
+
     .svg-container {
       padding: 6px 5px 6px 15px;
       color: $dark_gray;
@@ -218,10 +219,10 @@
       width: 30px;
       display: inline-block;
     }
-   
+
     .title-container {
       position: relative;
-   
+
       .title {
         font-size: 30px;
         color: $light_gray;
@@ -230,7 +231,7 @@
         font-weight: 500;
       }
     }
-   
+
     .show-pwd {
       position: absolute;
       right: 10px;

@@ -5,6 +5,8 @@ import store from './store'
 import Element from 'element-ui'
 import axios from 'axios'
 
+// 全局样式
+import '@/styles/index.scss'
 //引入Bootstrap
 // import BootstrapVue from 'bootstrap-vue'
 

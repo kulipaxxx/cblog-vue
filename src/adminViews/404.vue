@@ -14,7 +14,8 @@
                 </div>
                 <div class="bullshit__headline">{{ message }}</div>
                 <div class="bullshit__info">Please check that the URL you entered is correct, or click the button below to return to the homepage.</div>
-                <a href="" class="bullshit__return-home" @click="toHome">Back to home</a>
+                <a href="" class="bullshit__return-home" @click="toHome">Back to adminHome</a>
+                <a href="" class="bullshit__return-home" @click="toHome">Back to Home</a>
             </div>
         </div>
     </div>
@@ -31,7 +32,7 @@
         },
         methods:{
             toHome(){
-                this.$router.push("/adminIndex");
+                this.$router.push("/admin");
             }
         }
     }
