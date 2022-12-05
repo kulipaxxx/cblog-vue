@@ -4,9 +4,8 @@ import router from './router'
 import store from './store'
 import Element from 'element-ui'
 import axios from 'axios'
-
-// 全局样式
-import '@/styles/index.scss'
+//撑满全屏
+import './styles/all.css'
 //引入Bootstrap
 // import BootstrapVue from 'bootstrap-vue'
 

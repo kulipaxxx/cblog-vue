@@ -2,69 +2,43 @@
     <div class="layout">
         <div class="left-container" :style="{width: status.isCollapsed?'64px':'200px'}">
             <div class="logo-wrapper">
-                <img style="width:50px;height:50px;" src="../../assets/logo.gif"/>
+                <img style="width:50px;height:50px;" src="./DigitalX1.png" />
             </div>
             <div class="menu-wrapper">
-                <el-menu
-                        text-color="#000000"
-                        active-text-color="#ffffff"
-                        router
-                        unique-opened
-                        :collapse="status.isCollapsed"
-                        :default-active="$route.path"
-                >
-                    <template v-for="(menu, index) in menu_list">
-                        <el-menu-item class="menu-item" v-if="!menu.children" :index="menu.path" :key="index">
-                            <i :class="menu.icon" style="font-size:24px;"></i>
-                            <span slot="title">
-                                {{menu.title}}</span>
-                        </el-menu-item>
-                        <el-submenu v-else :index="menu.path">
-                            <template slot="title">
-                                <i :class="menu.icon" style="font-size:24px;"></i>
-                                <span slot="title">
-                                    {{menu.title}}</span>
-                            </template>
-                            <el-menu-item
-                                    class="menu-item"
-                                    v-for="(subMenu, subIndex) in menu.children"
-                                    :index="subMenu.path"
-                                    :key="subIndex"
-                            >
-                                <span slot="title" style="margin-left:13px;">
-                                    {{subMenu.title}}</span>
-                            </el-menu-item>
-                        </el-submenu>
-                    </template>
-                </el-menu>
+                <v-menu v-for="(menu,index) in this.menu_list" :key="index" :menu="menu" :status="status"></v-menu>
             </div>
         </div>
         <div class="topbar-container" :style="{left: this.status.isCollapsed?'64px':'200px'}">
-            <div class="el-button el-button--default el-button--small" @click="collapsed">
-                <i id="collapsedIcon" class="el-icon-s-fold"></i>
+            <div class="btn btn-mini btn-success" @click="collapsed">
+                <i class="icon-exchange"></i>
             </div>
         </div>
         <div class="content-container" :style="{left: this.status.isCollapsed?'64px':'200px'}">
-            <div class="content" style="height: 100%;">
+            <div class="content">
                 <router-view></router-view>
             </div>
         </div>
     </div>
 </template>
 <script>
+    import $ from "jquery";
+    import MenuItem from "../menu/MenuItem";
     export default {
+        components: {
+            "v-menu": MenuItem
+        },
         data() {
             return {
                 menu_list: [
                     {
                         path: "/home",
                         title: "首页",
-                        icon: "el-icon-s-home"
+                        icon: "icon-home icon-large"
                     },
                     {
                         path: "/user",
                         title: "用户管理",
-                        icon: "el-icon-user-solid",
+                        icon: "icon-user icon-large",
                         children: [
                             { path: "/user/roles", title: "用户角色" },
                             { path: "/user/auths", title: "用户权限" }
@@ -73,7 +47,7 @@
                     {
                         path: "/sys",
                         title: "系统管理",
-                        icon: "el-icon-s-tools",
+                        icon: "icon-heart icon-large",
                         children: [
                             { path: "/sys/jobs", title: "定时任务" },
                             { path: "/sys/menus", title: "菜单管理" }
@@ -82,7 +56,8 @@
                 ],
                 status: {
                     isCollapsed: false,
-                    parentMenu: "用户管理"
+                    currentMenu: "首页",
+                    parentMenu: "首页"
                 }
             };
         },
@@ -90,14 +65,10 @@
             collapsed: function() {
                 if (this.status.isCollapsed) {
                     this.status.isCollapsed = false;
-                    $("#collapsedIcon")
-                        .removeClass("el-icon-s-unfold")
-                        .addClass("el-icon-s-fold");
+                    $(".l2").removeClass("hidden");
                 } else {
                     this.status.isCollapsed = true;
-                    $("#collapsedIcon")
-                        .removeClass("el-icon-s-fold")
-                        .addClass("el-icon-s-unfold");
+                    $(".l2").addClass("hidden");
                 }
             }
         }
@@ -141,8 +112,5 @@
         padding: 16px;
         overflow: auto;
         transition: all 0.3s ease-in-out;
-    }
-    .menu-item.is-active {
-        background-color: #28a745 !important;
     }
 </style>

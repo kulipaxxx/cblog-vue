@@ -37,22 +37,31 @@ export const routes = [
         component: adminLogin
     },
     {
-        path: '/layout',
-        name: 'layout',
-        component: Layout
+        path: '/layout',//根目录路由为/
+        component: Layout,//指定使用Layout组件布局
+        redirect: '/home',//重定向至/home页面
+        children: [{//子菜单信息
+            path: '/home',//路径
+            name: 'home',
+            component: () => import('@/adminViews/views/home'),//指定组件
+            meta: { title: '首页', access: 0, affix: true }
+        }]
     },
     {
-        path: '/dog',
+        path: '/user',
         component: Layout,
-        name: '狗子世界',
-        // component: () => import('@/views/home/index')
-        children: [
+        children: [{
+                path: "/user/roles",
+                name: 'roles',
+                component: () => import('@/adminViews/views/user/roles'),
+                meta: {title: '用户角色管理', access: 0}
+            },
             {
-                path: '/erha',
-                name: '哈士奇',
-                component: () => import('@/adminViews/404.vue')
-            }
-        ]
+                path: "/user/auths",
+                name: 'auths',
+                component: () => import('@/adminViews/views/user/auths'),
+                meta: { title: '用户权限管理', access: 0 }
+            }]
     },
     {
         path: '/test',
