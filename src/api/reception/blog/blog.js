@@ -4,7 +4,7 @@ export function getblogs(currentPage) {
     return request({
         url: 'api/blog/index',
         method: 'get',
-        data: {
+        params: {
             currentPage
         }
     })

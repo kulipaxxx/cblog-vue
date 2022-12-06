@@ -59,7 +59,7 @@
                 const _this = this
                 console.log("进入博客页面")
                 getblogs(currentPage).then(res => {
-                    console.log(res)
+                    console.log(res.data)
                     _this.blogs = res.data.data.records
                     _this.currentPage = res.data.data.current
                     _this.total = res.data.data.total
@@ -83,7 +83,8 @@
     .content{
         max-width: 960px;
         background-color: white;
-        height: 960px;
+        min-height: 200px;
+        max-height: 970px;
         margin: 0 auto;
     }
     .m {

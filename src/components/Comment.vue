@@ -1,7 +1,8 @@
 <template>
   <div>
+    <!-- 发表直接评论 -->
     <div v-clickoutside="hideReplyBtn" @click="inputFocus" class="my-reply">
-      <el-avatar class="header-img" :size="40" :src="myHeader"></el-avatar>
+      <el-avatar class="header-img" :size="40" :src="user.avatar"></el-avatar>
       <div class="reply-info">
         <div
           tabindex="0"
@@ -18,95 +19,100 @@
         <el-button
           class="reply-btn"
           size="medium"
-          @click="sendComment"
+          @click="sendComment(true)"
           type="primary"
           >发表评论</el-button
         >
       </div>
     </div>
+    <!-- 遍历出已有评论 -->
+    <!-- CommentDto(id=1, content=这是测试内容, userId=1, userName=cblog, createTime=null, isDelete=0, 
+      blogId=1, parentId=null, rootParentId=null, child=[CommentDto(id=2, content=测试内容, 
+      userId=1, userName=xqc, createTime=2022-11-30 22:36:29, isDelete=0, blogId=1, parentId=1, 
+      rootParentId=1, child=null)])] -->
+
     <div
       v-for="(item, i) in comments"
       :key="i"
       class="author-title reply-father"
     >
-    <!-- CommentDto(id=1, content=这是测试内容, userId=1, userName=cblog, createTime=null, 
-    isDelete=0, blogId=1, parentId=null, rootParentId=null, 
-    child=[CommentDto(id=2, content=测试内容, userId=1, userName=xqc, 
-    createTime=2022-11-30 22:36:29, isDelete=0, blogId=1, parentId=1, 
-    rootParentId=1, child=null)]), CommentDto(id=2, content=测试内容, userId=1,
-     userName=xqc, createTime=2022-11-30 22:36:29, isDelete=0, blogId=1, parentId=1,
-      rootParentId=1, child=null)] -->
-
-      <el-avatar class="header-img" :size="40" :src="item.headImg"></el-avatar>
+      <el-avatar class="header-img" :size="40" :src="user.avatar"></el-avatar>
       <div class="author-info">
         <span class="author-name">{{ item.userName }}</span>
         <span class="author-time">{{ item.createTime }}</span>
       </div>
+      <!-- 展示根评论回复点赞图标及内容 -->
       <div class="icon-btn">
-        <span @click="showReplyInput(i, item.userName, item.userId)"
+        <span @click="showReplyInput(i, item.rootParentId, item.id)"
           ><i class="iconfont el-icon-s-comment"></i>{{ item.commentNum }}</span
         >
-        <!-- <i class="iconfont el-icon-caret-top"></i>{{ item.like }} -->
+        <i class="iconfont el-icon-caret-top"></i>{{ item.like }}
       </div>
       <div class="talk-box">
         <p>
           <span class="reply">{{ item.content }}</span>
         </p>
       </div>
+
       <div class="reply-box">
         <div v-for="(reply, j) in item.child" :key="j" class="author-title">
           <el-avatar
             class="header-img"
             :size="40"
-            :src="reply.fromHeadImg"
+            :src="user.avatar"
           ></el-avatar>
           <div class="author-info">
             <span class="author-name">{{ reply.userName }}</span>
             <span class="author-time">{{ reply.createTime }}</span>
           </div>
           <div class="icon-btn">
-            <span @click="showReplyInput(i, reply.parentId, reply.id)"
+            <span @click="showReplyInput(j, reply.rootParentId, reply.id)"
               ><i class="iconfont el-icon-s-comment"></i
               >{{ reply.commentNum }}</span
             >
-            <!-- <i class="iconfont el-icon-caret-top"></i>{{ reply.like }} -->
+            <i class="iconfont el-icon-caret-top"></i>{{ reply.like }}
           </div>
           <div class="talk-box">
             <p>
-              <span>回复 {{ reply.parentId }}:</span>
+              <span>回复 {{ item.userName }}:</span>
               <span class="reply">{{ reply.content }}</span>
             </p>
           </div>
           <div class="reply-box"></div>
-        </div>
-      </div>
-      <div v-show="_inputShow(i)" class="my-reply my-comment-reply">
-        <el-avatar class="header-img" :size="40" :src="myHeader"></el-avatar>
-        <div class="reply-info">
-          <div
-            tabindex="0"
-            contenteditable="true"
-            spellcheck="false"
-            placeholder="输入评论..."
-            @input="onDivInput($event)"
-            class="reply-input reply-comment-input"
-          ></div>
-        </div>
-        <div class="reply-btn-box">
-          <el-button
-            class="reply-btn"
-            size="medium"
-            @click="sendCommentReply(i, j)"
-            type="primary"
-            >发表评论</el-button
-          >
+          <div v-show="_inputShow(i)" class="my-reply my-comment-reply">
+            <el-avatar
+              class="header-img"
+              :size="40"
+              :src="user.avatar"
+            ></el-avatar>
+            <div class="reply-info">
+              <div
+                tabindex="0"
+                contenteditable="true"
+                spellcheck="false"
+                placeholder="输入评论..."
+                @input="onDivInput($event)"
+                class="reply-input reply-comment-input"
+              ></div>
+            </div>
+            <div class="reply-btn-box">
+              <el-button
+                class="reply-btn"
+                size="medium"
+                @click="sendComment(false)"
+                type="primary"
+                >发表评论</el-button
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { getComments } from '@/api/reception/blog/comment';
+import { getComments, alterComment } from "@/api/reception/blog/comment";
+import store from "@/store";
 const clickoutside = {
   // 初始化指令
   bind(el, binding, vnode) {
@@ -136,10 +142,23 @@ export default {
   name: "ArticleComment",
   props: {
     //props列表
-   blogId: String, //定义参数类型
+    blogId: String, //定义参数类型
   },
   data() {
     return {
+      btnShow: false,
+      index: "0",
+      rootParentId: "",
+      parentId: "",
+      content: "",
+      flag: false,
+      user: {
+        id: "",
+        username: "请先登录",
+        avatar:
+          "https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png",
+      },
+      hasLogin: false,
       comments: {},
     };
   },
@@ -159,77 +178,88 @@ export default {
       replyInput.style.padding = "10px";
       replyInput.style.border = "none";
     },
-    showReplyInput(i, name, id) {
+    showReplyInput(i, rootParentId, id) {
+      //记录当前评论在树中位置
       this.comments[this.index].inputShow = false;
-      this.index = i;
       this.comments[i].inputShow = true;
-      this.to = name;
-      this.toId = id;
+      this.index = i;
+      //根评论id
+      this.rootParentId = rootParentId;
+      //回复评论id
+      this.parentId = id;
+      console.log(
+        "根评论id:" + this.rootParentId + "回复评论id:" + this.parentId
+      );
     },
     _inputShow(i) {
       return this.comments[i].inputShow;
     },
-    sendComment() {
-      if (!this.replyComment) {
+    sendComment(flag) {
+      //发表评论
+      if (!this.hasLogin) {
+        this.$message({
+          showClose: true,
+          type: "warning",
+          message: "请先登录",
+        });
+      } else if (!this.content) {
         this.$message({
           showClose: true,
           type: "warning",
           message: "评论不能为空",
         });
-      } else {
-        let a = {};
-        let input = document.getElementById("replyInput");
-        let timeNow = new Date().getTime();
-        let time = this.dateStr(timeNow);
-        a.name = this.myName;
-        a.comment = this.replyComment;
-        a.headImg = this.myHeader;
-        a.time = time;
-        a.commentNum = 0;
-        a.like = 0;
-        this.comments.push(a);
-        this.replyComment = "";
-        input.innerHTML = "";
-      }
-    },
-    sendCommentReply(i, j) {
-      if (!this.replyComment) {
-        this.$message({
-          showClose: true,
-          type: "warning",
-          message: "评论不能为空",
+      } else if (flag) {
+        //根角色发表评论
+        alterComment(
+          this.content,
+          this.user.id,
+          this.user.username,
+          this.blogId,
+          null,
+          null
+        ).then((res) => {
+          location.reload();
+          console.log(res.data);
         });
       } else {
-        let a = {};
-        let timeNow = new Date().getTime();
-        let time = this.dateStr(timeNow);
-        a.from = this.myName;
-        a.to = this.to;
-        a.fromHeadImg = this.myHeader;
-        a.comment = this.replyComment;
-        a.time = time;
-        a.commentNum = 0;
-        a.like = 0;
-        this.comments[i].reply.push(a);
-        this.replyComment = "";
-        document.getElementsByClassName("reply-comment-input")[i].innerHTML =
-          "";
+        //回复评论
+        console.log("角色id" + this.user.id);
+        alterComment(
+          this.content,
+          this.user.id,
+          this.user.username,
+          this.blogId,
+          this.parentId,
+          this.rootParentId
+        ).then((res) => {
+          location.reload();
+          console.log(res.data);
+        });
       }
     },
     onDivInput: function (e) {
-      this.replyComment = e.target.innerHTML;
+      this.content = e.target.innerHTML;
+      console.log("评论内容：" + this.content);
     },
   },
   created() {
+    if (this.$store.getters.getUser) {
+      this.user.username = this.$store.getters.getUser.username;
+      this.user.id = this.$store.getters.getUser.id;
+      if (this.$store.getters.getUser.avatar != null)
+        this.user.avatar = this.$store.getters.getUser.avatar;
+      this.hasLogin = true;
+    }
     console.log("評論模塊:博客id為" + this.blogId); //3
-    getComments(this.blogId).then( res=> {
-        console.log("進入評論模塊")
-        console.log(res);
-        this.comments = res.data.data;
-    })
+    getComments(this.blogId).then((res) => {
+      console.log("進入評論模塊");
+      console.log(res);
+      this.comments = res.data.data;
+    });
   },
 };
 </script>
+
 <style lang="stylus" scoped>
 .my-reply {
   padding: 10px;
