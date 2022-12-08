@@ -110,16 +110,11 @@
               })
             }, 1500)
           } else {
-            console.log('error submit!!')
+            console.log('error submit!!');
             return false
           }
         })
       },
-      // 注册业务
-      register() {
-        console.log('123')
-        this.$router.push({ name: 'register' })
-      }
     }
   }
   </script>
