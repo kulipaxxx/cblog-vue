@@ -13,7 +13,7 @@
 
         <el-form-item prop="username">
           <span class="svg-container">
-            <i class="el-icon-lock"></i>
+            <i class="el-icon-user-solid"></i>
           </span>
           <el-input ref="username" v-model="loginForm.username" placeholder="Username" name="username" type="text" tabindex="1" auto-complete="on" />
         </el-form-item>
@@ -24,14 +24,21 @@
           </span>
           <el-input :key="passwordType" ref="password" v-model="loginForm.password" :type="passwordType" placeholder="Password" name="password" tabindex="2" auto-complete="on" @keyup.enter.native="handleLogin" />
           <span class="show-pwd" @click="showPwd">
-            <i class="el-icon-lock"></i>
+            <i class="el-icon-view"></i>
           </span>
+        </el-form-item>
+        <el-form-item prop="code">
+          <span class="svg-container">
+            <i class="el-icon-magic-stick"></i>
+          </span>
+          <el-input v-model="loginForm.code" auto-complete="off" placeholder="验证码" style="width: 100px">
+          </el-input>
+          <div style="float: right;margin: 0 10px;">
+            <img :src="src" @click="refreshCaptcha">
+          </div>
         </el-form-item>
         <div>
           <el-button type="primary" style="width:100%;margin-bottom:20px;" @click.native.prevent="handleLogin">登录</el-button>
-        </div>
-        <div class="tips">
-          <!--<span style="margin-right:20px;"></span>-->
         </div>
 
       </el-form>
@@ -41,6 +48,7 @@
   <script>
   // 引入去除空格工具
   import { validUsername } from '@/utils/validate'
+  import {login,code} from "../api/reception/login";
 
   export default {
     name: 'Login',
@@ -64,16 +72,24 @@
         TxStatus: true,
         loginForm: {
           username: '',
-          password: ''
+          password: '',
+          code: '',
+          uuid: ''
         },
         // 登录规则
         loginRules: {
-          username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-          password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+          username: [
+            { required: true, message: '请输入用户名', trigger: 'blur' },
+            { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          ],
+          password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+          code: [{required: true, trigger: 'change', message: '验证码不能为空'}
+          ],
         },
         loading: false,
         passwordType: 'password',
-        redirect: undefined
+        redirect: undefined,
+        src: '',
       }
     },
     watch: {
@@ -102,19 +118,37 @@
           if (valid) {
             this.loading = true
             setTimeout(() => {
-              this.$store.dispatch('user/login', this.loginForm).then(() => {
-                this.$router.push({ path: this.redirect || '/' })
-                this.loading = false
-              }).catch(() => {
-                this.loading = false
-              })
-            }, 1500)
+              const _this = this;
+              login(this.loginForm.username,this.loginForm.password,this.loginForm.code,this.loginForm.uuid).then(res=>{
+                // const token = res.headers['authorization']
+                // _this.$store.commit('SET_TOKEN', token)
+                // _this.$store.commit('SET_USERINFO', res.data.data)
+                // console.log("============");
+                console.log(res);
+                _this.$router.push("/layout")
+              }).catch(e=>{
+                this.loading = false;
+              })}, 1500)
           } else {
             console.log('error submit!!');
             return false
           }
         })
       },
+      refreshCaptcha: function () {
+        code("/auth/code").then((res) => {
+          console.log("进入code");
+
+          console.log(res);
+          this.src = res.data.data.img;
+          console.log(this.src);
+          //这个 登录携带的参数 根据key 要从redis中  获取正确的验证码运算结果
+          this.loginForm.uuid = res.data.data.key;
+        });
+      },
+    },
+    created() {
+      this.refreshCaptcha()
     }
   }
   </script>
@@ -131,7 +165,7 @@
   .login-container {
     .el-input {
       display: inline-block;
-      height: 47px;
+      height: 37px;
       width: 85%;
 
       input {
@@ -141,7 +175,7 @@
         border-radius: 0px;
         padding: 12px 5px 12px 15px;
         color: $light_gray;
-        height: 47px;
+        height: 37px;
         caret-color: $cursor;
 
         &:-webkit-autofill {
@@ -193,7 +227,7 @@
       position: relative;
       width: 520px;
       max-width: 100%;
-      padding: 160px 35px 0;
+      padding: 70px 35px 0;
       margin: 0 auto;
       overflow: hidden;
 
@@ -221,7 +255,7 @@
       .title {
         font-size: 30px;
         color: $light_gray;
-        margin: 0px auto 40px auto;
+        margin: 0px auto 20px auto;
         text-align: center;
         font-weight: 500;
       }

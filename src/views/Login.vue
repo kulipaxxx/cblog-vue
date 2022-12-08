@@ -33,7 +33,7 @@
                     <el-form-item prop="code" label="验证码">
                         <el-input v-model="ruleForm.code" auto-complete="off" placeholder="验证码" style="width: 250px">
                         </el-input>
-                        <div class="login-code">
+                        <div>
                             <img :src="src" @click="refreshCaptcha">
                         </div>
                     </el-form-item>
@@ -103,7 +103,7 @@
             },
             findPwd(){
                 this.$router.push("/getPwd");
-            },  
+            },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },
