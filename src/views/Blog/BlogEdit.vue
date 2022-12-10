@@ -22,7 +22,6 @@
                     <el-button @click="resetForm('ruleForm')">重置</el-button>
                 </el-form-item>
             </el-form>
-
         </div>
 
         <Footer></Footer>
@@ -106,5 +105,7 @@
 <style scoped>
     .m-content {
         text-align: center;
+        width: 100%;
+        margin: 0 auto;
     }
 </style>
