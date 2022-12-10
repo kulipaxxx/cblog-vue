@@ -1,5 +1,7 @@
 <template>
     <div class="layout">
+
+
         <div class="left-container" :style="{width: status.isCollapsed?'64px':'200px'}">
             <div class="logo-wrapper">
                 <img style="width:50px;height:50px;" src="./DigitalX1.png" />
@@ -18,6 +20,7 @@
                 <router-view></router-view>
             </div>
         </div>
+
     </div>
 </template>
 <script>
@@ -112,5 +115,10 @@
         padding: 16px;
         overflow: auto;
         transition: all 0.3s ease-in-out;
+    }
+    .avatar{
+        position: fixed;
+        z-index: 100;
+        float: right;
     }
 </style>

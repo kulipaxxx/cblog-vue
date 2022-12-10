@@ -43,6 +43,21 @@
             <div class="el-button el-button--default el-button--small" @click="collapsed">
                 <i id="collapsedIcon" class="el-icon-s-fold"></i>
             </div>
+            <el-dropdown class="avatar">
+                <span class="el-dropdown-link">
+                    <el-avatar :size="48" :src="user.avatar"></el-avatar>
+                </span>
+                <el-dropdown-menu slot="dropdown" style="width: 100px;margin-right: -20px;text-align: center;">
+                    <el-dropdown-item>
+                        <el-link>
+                            <el-link href="/index">个人中心</el-link>
+                        </el-link>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                        <el-link @click="logout">退出</el-link>
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
         </div>
         <div class="content-container" :style="{left: this.status.isCollapsed?'64px':'200px'}">
             <div class="content" style="height: 100%;">
@@ -55,6 +70,11 @@
     export default {
         data() {
             return {
+                hasLogin: false,
+                user: {
+                    username: '请先登录',
+                    avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+                },
                 menu_list: [
                     {
                         path: "/home",
@@ -68,6 +88,15 @@
                         children: [
                             { path: "/user/roles", title: "用户角色" },
                             { path: "/user/auths", title: "用户权限" }
+                        ]
+                    },
+                    {
+                        path: "/blog",
+                        title: "博客管理",
+                        icon: "el-icon-document-copy",
+                        children: [
+                            { path: "/blog/roles", title: "文章" },
+                            { path: "/blog/auths", title: "评论" }
                         ]
                     },
                     {
@@ -100,6 +129,19 @@
                         .addClass("el-icon-s-unfold");
                 }
             }
+        },
+        created() {
+            // if (this.$store.getters.getUser.avatar != null)
+            //     this.hasLogin = true;
+            // if (!this.hasLogin){
+            //     this.$message({
+            //         message: '请先登录',
+            //         type: 'warning',
+            //         duration: 2 * 1000
+            //     })
+            //     this.$router.push("/admin")
+            // }
+
         }
     };
 </script>
@@ -144,5 +186,10 @@
     }
     .menu-item.is-active {
         background-color: #28a745 !important;
+    }
+    .avatar{
+
+        float: right;
+        z-index: 99;
     }
 </style>
