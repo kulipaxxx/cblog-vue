@@ -48,19 +48,35 @@ export const routes = [
         }]
     },
     {
-        path: '/user',
+        path: '/userConsole',
         component: Layout,
         children: [{
-                path: "/user/roles",
+                path: "/userConsole/roles",
                 name: 'roles',
                 component: () => import('@/adminViews/views/user/roles'),
                 meta: {title: '用户角色管理', access: 0}
             },
             {
-                path: "/user/auths",
+                path: "/userConsole/auths",
                 name: 'auths',
                 component: () => import('@/adminViews/views/user/auths'),
                 meta: { title: '用户权限管理', access: 0 }
+            }]
+    },
+    {
+        path: '/blogConsole',
+        component: Layout,
+        children: [{
+            path: "/blogConsole/article",
+            name: 'roles',
+            component: () => import('@/adminViews/views/blog/article'),
+            meta: {title: '用户文章管理', access: 0}
+        },
+            {
+                path: "/blogConsole/comment",
+                name: 'auths',
+                component: () => import('@/adminViews/views/blog/comment'),
+                meta: { title: '文章评论管理', access: 0 }
             }]
     },
     {

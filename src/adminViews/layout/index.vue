@@ -82,21 +82,21 @@
                         icon: "el-icon-s-home"
                     },
                     {
-                        path: "/user",
+                        path: "/userConsole",
                         title: "用户管理",
                         icon: "el-icon-user-solid",
                         children: [
-                            { path: "/user/roles", title: "用户角色" },
-                            { path: "/user/auths", title: "用户权限" }
+                            { path: "/userConsole/roles", title: "用户角色" },
+                            { path: "/userConsole/auths", title: "用户权限" }
                         ]
                     },
                     {
-                        path: "/blog",
+                        path: "/blogConsole",
                         title: "博客管理",
                         icon: "el-icon-document-copy",
                         children: [
-                            { path: "/blog/roles", title: "文章" },
-                            { path: "/blog/auths", title: "评论" }
+                            { path: "/blogConsole/article", title: "文章" },
+                            { path: "/blogConsole/comment", title: "评论" }
                         ]
                     },
                     {
