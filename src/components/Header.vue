@@ -107,7 +107,6 @@
 
     .maction {
         float: right;
-        width: 60px;
     }
 
     .el-dropdown-link {

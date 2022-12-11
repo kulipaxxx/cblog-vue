@@ -50,7 +50,7 @@
                 <el-dropdown-menu slot="dropdown" style="width: 100px;margin-right: -20px;text-align: center;">
                     <el-dropdown-item>
                         <el-link>
-                            <el-link href="/index">个人中心</el-link>
+                            <el-link href="/adminIndex">个人中心</el-link>
                         </el-link>
                     </el-dropdown-item>
                     <el-dropdown-item>
@@ -67,6 +67,8 @@
     </div>
 </template>
 <script>
+    import {logout} from "../../api/reception/login";
+
     export default {
         data() {
             return {
@@ -128,7 +130,14 @@
                         .removeClass("el-icon-s-fold")
                         .addClass("el-icon-s-unfold");
                 }
-            }
+            },
+            logout() {
+                const _this = this;
+                logout().then(res => {
+                    _this.$store.commit("REMOVE_INFO")
+                    _this.$router.push("/login")
+                })
+            },
         },
         created() {
             // if (this.$store.getters.getUser.avatar != null)

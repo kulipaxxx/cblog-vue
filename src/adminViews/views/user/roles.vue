@@ -5,8 +5,23 @@
 </template>
 
 <script>
+    import {getRoles,editRole,deleteRole} from "../../../api/admin/user/userConsole";
+
     export default {
-        name: "roles"
+        name: "roles",
+        data(){
+            return{
+
+            }
+        },
+        methods:{
+
+        },
+        created() {
+            getRoles().then(res=>{
+                console.log("角色信息"+res.data);
+            })
+        }
     }
 </script>
 

@@ -71,8 +71,8 @@
         // 头像状态
         TxStatus: true,
         loginForm: {
-          username: '',
-          password: '',
+          username: 'cblog',
+          password: '111111',
           code: '',
           uuid: ''
         },

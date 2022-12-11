@@ -89,5 +89,6 @@
     }
     .m {
         background-color: #f2f6fcaf;
+        width: 100%;
     }
 </style>
