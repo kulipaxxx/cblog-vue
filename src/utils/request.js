@@ -54,6 +54,9 @@ request.interceptors.response.use(response => {
             error.message = '请重新登录';
         }
         if (error.response.status === 403) {
+            router.push({
+                path: '/home'
+            })
             error.message = '权限不足，无法访问';
         }
         Element.Message({
