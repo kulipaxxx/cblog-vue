@@ -1,33 +1,45 @@
 <template>
     <div>
-        <Header></Header>
         <el-table
                 :data="tableData.filter(data => !search || data.title.toLowerCase().includes(search.toLowerCase()))"
                 style="width: 100%">
             <el-table-column
-                    label="Date"
-                    prop="created">
+                    label="标题"
+                    prop="title"
+            >
             </el-table-column>
             <el-table-column
-                    label="Name"
-                    prop="title">
+                    label="发布时间"
+                    prop="created"
+                    column-key="date"
+                    sortable>
             </el-table-column>
+            <el-table-column
+                    label="发布状态"
+            >
+                <p v-if="tableData.status != 1">已发布</p>
+                <p v-else>未发布</p>
+            </el-table-column>
+
             <el-table-column
                     align="right">
                 <template slot="header" slot-scope="scope">
                     <el-input
                             v-model="search"
-                            size="mini"
+                            size="small"
+                            style="width: 170px;"
                             placeholder="输入关键字搜索"/>
                 </template>
                 <template slot-scope="scope">
                     <el-button
                             size="mini"
-                            @click="handleEdit(scope.$index)">Edit</el-button>
+                            @click="handleEdit(scope.$index, scope.row)">编辑
+                    </el-button>
                     <el-button
                             size="mini"
                             type="danger"
-                            @click="handleDelete(scope.$index)">Delete</el-button>
+                            @click="handleDelete(scope.$index, scope.row)">删除
+                    </el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -40,27 +52,25 @@
                        @current-change=page>
         </el-pagination>
 
-        <Footer></Footer>
     </div>
 </template>
 
 <script>
-    import Header from '@/components/Header'
-    import Footer from '@/components/Footer'
-    import {getIndex,deleteBlog} from "../../api/reception/blog/blog";
+   import {getIndex} from "@/api/reception/blog/blog";
+   import {blogDelete} from "@/api/admin/blog/blogConsole";
 
     export default {
-        name: "Manager",
-        components: {Header,Footer},
+        name: "HomeArticle",
 
         data() {
             return {
                 blogs: {},
                 currentPage: 1,
                 total: 0,
-                pageSize: 5,
+                pageSize: 10,
                 tableData: [],
-                search: ''
+                search: '',
+                status: ''
             }
         },
         methods: {
@@ -68,7 +78,7 @@
                 let b = this.blogs[id].id;
                 console.log(b);
                 this.$router.push({
-                    path: "/blog/add",
+                    path: "/blogConsole/edit",
                     query: {
                         blogId: b,
                     }
@@ -78,15 +88,17 @@
                 const b = this.blogs[id].id;
                 console.log(b);
                 const _this = this;
-                deleteBlog(b).then(res=>{
-                    _this.$router.push("/blogs")
+                blogDelete(b).then(res => {
+                    _this.$router.push("/blogConsole/article")
                 })
             },
-            page(id, currentPage) {
+            page(currentPage) {
                 const _this = this
-                getIndex(id,currentPage).then(res => {
+                // let id = this.$store.getters.getUser.id;
+                let id = 1;
+                getIndex(id, currentPage).then(res => {
                     console.log(res)
-                    _this.blogs = res.data.data.records
+                    _this.blogs = res.data.data.records;
                     _this.currentPage = res.data.data.current
                     _this.total = res.data.data.total
                     _this.pageSize = res.data.data.size
@@ -97,7 +109,8 @@
             }
         },
         created() {
-            this.page(1,this.$store.getters.getUser.id)
+            this.page(1);
+            console.log(localStorage.getItem("token"))
         }
     }
 </script>

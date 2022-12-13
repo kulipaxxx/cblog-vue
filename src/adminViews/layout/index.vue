@@ -68,7 +68,7 @@
 </template>
 <script>
     import {logout} from "../../api/reception/login";
-
+    import $ from 'jquery'
     export default {
         data() {
             return {

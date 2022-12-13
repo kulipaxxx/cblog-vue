@@ -57,7 +57,8 @@
         methods: {
             page(currentPage) {
                 const _this = this
-                console.log("进入博客页面")
+                console.log("进入博客页面");
+                console.log("博客第" + currentPage + "页")
                 getblogs(currentPage).then(res => {
                     console.log(res.data)
                     _this.blogs = res.data.data.records

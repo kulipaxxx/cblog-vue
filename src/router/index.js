@@ -4,13 +4,13 @@ import Login from '../views/Login.vue'
 import BlogDetail from '../views/Blog/BlogDetails.vue'
 import BlogEdit from '../views/Blog/BlogEdit.vue'
 import UserSeeting from '../views/setting/UserSetting'
-import Man from '../views/setting/Manager'
 import Register from "../views/Register"
 import Index from '@/views/User/Index'
 import adminLogin from '@/adminViews/login'
 import getPwd from '@/views/getPwd'
 import archivePage from '@/views/file/archivePage'
 import test from '@/views/test'
+
 /* Layout */
 import Layout from '@/adminViews/layout'
 
@@ -68,15 +68,21 @@ export const routes = [
         component: Layout,
         children: [{
             path: "/blogConsole/article",
-            name: 'roles',
-            component: () => import('@/adminViews/views/blog/article'),
+            name: 'article',
+            component: () => import('@/adminViews/views/blog/HomeArticle'),
             meta: {title: '用户文章管理', access: 0}
-        },
+            },
             {
                 path: "/blogConsole/comment",
-                name: 'auths',
+                name: 'comment',
                 component: () => import('@/adminViews/views/blog/comment'),
                 meta: { title: '文章评论管理', access: 0 }
+            },
+            {
+                path: "/blogConsole/edit",
+                name: 'edit',
+                component: () => import('@/views/Blog/BlogEdit'),
+                meta: { title: '文章编辑', access: 0 }
             }]
     },
     {
@@ -105,11 +111,6 @@ export const routes = [
         path: '/setting',
         name: 'Seeting',
         component: UserSeeting
-    },
-    {
-        path: '/man',
-        name: 'Man',
-        component: Man
     },
     {
         path: '/index',

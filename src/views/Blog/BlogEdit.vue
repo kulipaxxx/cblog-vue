@@ -1,9 +1,6 @@
 <template>
     <div>
-        <Header></Header>
-
         <div class="m-content">
-
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
                 <el-form-item label="标题" prop="title">
                     <el-input v-model="ruleForm.title"></el-input>
@@ -23,15 +20,14 @@
                 </el-form-item>
             </el-form>
         </div>
-
-        <Footer></Footer>
     </div>
 </template>
 
 <script>
     import Header from "@/components/Header.vue";
     import Footer from "@/components/Footer.vue";
-    import {editBlog,getDetail} from "../../api/reception/blog/blog";
+    import {getDetail} from "../../api/reception/blog/blog";
+    import {editBlog} from "../../api/admin/blog/blogConsole";
 
     export default {
         name: "BlogEdit.vue",
@@ -68,7 +64,7 @@
                             _this.$alert('操作成功', '提示', {
                                 confirmButtonText: '确定',
                                 callback: action => {
-                                    _this.$router.push("/blogs")
+                                    _this.$router.push("/blogConsole/article")
                                 }
                             });
                         })

@@ -12,12 +12,8 @@ export function getblogs(currentPage) {
 
 export function getIndex(id, currentPage) {
     return request({
-        url: 'api/blog/index',
+        url: 'api/blog/index/' + id + '/' + currentPage,
         method: 'get',
-        data: {
-            id,
-            currentPage
-        }
     })
 }
 
@@ -28,27 +24,3 @@ export function getDetail(id) {
     })
 }
 
-export function editBlog(id, title, description, content) {
-    return request({
-        url: 'api/blog/edit',
-        method: 'post',
-        data: {
-            id,
-            title,
-            description,
-            content
-        },
-        headers: {
-            "Authorization": localStorage.getItem("token")
-        }
-    })
-}
-export function deleteBlog(id) {
-    return request({
-        url: 'api/blog',
-        method: 'delete',
-        data: {
-            id
-        }
-    })
-}
