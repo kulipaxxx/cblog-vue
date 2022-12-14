@@ -43,14 +43,18 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-pagination class="mpage"
-                       background
-                       layout="prev, pager, next"
-                       :current-page="currentPage"
-                       :page-size="pageSize"
-                       :total="total"
-                       @current-change=page>
-        </el-pagination>
+        <div class="mpage">
+            <el-button type="primary" @click="releasePage">新建</el-button>
+            <el-pagination
+                           background
+                           layout="prev, pager, next"
+                           :current-page="currentPage"
+                           :page-size="pageSize"
+                           :total="total"
+                           @current-change=page>
+            </el-pagination>
+        </div>
+
 
     </div>
 </template>
@@ -90,6 +94,11 @@
                 const _this = this;
                 blogDelete(b).then(res => {
                     _this.$router.push("/blogConsole/article")
+                })
+            },
+            releasePage(){
+                this.$router.push({
+                    path: "/blogConsole/edit",
                 })
             },
             page(currentPage) {

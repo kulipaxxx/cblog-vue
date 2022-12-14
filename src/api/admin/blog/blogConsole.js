@@ -3,7 +3,10 @@ import request from '@/utils/request.js'
 export function blogDelete(id) {
     return request({
         url: '/admin/blog/' + id,
-        method: 'delete'
+        method: 'delete',
+        headers: {
+            "Authorization": localStorage.getItem("token")
+        }
     })
 }
 

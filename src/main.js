@@ -16,17 +16,18 @@ import './styles/all.css'
 
 //引入markdown
 import mavonEditor from 'mavon-editor'
-
-import "element-ui/lib/theme-chalk/index.css"
 import 'mavon-editor/dist/css/index.css'
 
+
+import "element-ui/lib/theme-chalk/index.css"
+import locale from 'element-ui/lib/locale/lang/zh-CN'
 //引入axios前置后置拦截
 import request from "./utils/request.js"
 
 //引入权限拦截
 import "./store/modules/permission.js"
 
-Vue.use(Element)
+Vue.use(Element,{locale})
 Vue.use(mavonEditor)
 
 Vue.config.productionTip = false

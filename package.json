@@ -11,7 +11,7 @@
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.8.3",
     "crypto-js": "^4.1.1",
-    "element-ui": "^2.15.10",
+    "element-ui": "^2.15.12",
     "github-markdown-css": "^5.1.0",
     "markdown-it": "^13.0.1",
     "mavon-editor": "^2.10.4",

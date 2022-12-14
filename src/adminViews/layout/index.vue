@@ -40,8 +40,11 @@
             </div>
         </div>
         <div class="topbar-container" :style="{left: this.status.isCollapsed?'64px':'200px'}">
-            <div class="el-button el-button--default el-button--small" @click="collapsed">
+            <div class="el-button el-button--default el-button--small" @click="collapsed" style="float: left;margin-top: 5px">
                 <i id="collapsedIcon" class="el-icon-s-fold"></i>
+            </div>
+            <div class="el-button el-button--default el-button--small" @click="refresh" style="float:left;margin-top: 5px;margin-left: 10px">
+                <i class="el-icon-refresh"></i>
             </div>
             <el-dropdown class="avatar">
                 <span class="el-dropdown-link">
@@ -107,7 +110,6 @@
                         icon: "el-icon-s-tools",
                         children: [
                             { path: "/sys/jobs", title: "定时任务" },
-                            { path: "/sys/menus", title: "菜单管理" }
                         ]
                     }
                 ],
@@ -130,6 +132,9 @@
                         .removeClass("el-icon-s-fold")
                         .addClass("el-icon-s-unfold");
                 }
+            },
+            refresh(){
+                this.$router.go(0);
             },
             logout() {
                 const _this = this;
