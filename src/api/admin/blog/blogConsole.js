@@ -5,7 +5,7 @@ export function blogDelete(id) {
         url: '/admin/blog/' + id,
         method: 'delete',
         headers: {
-            "Authorization": localStorage.getItem("token")
+            "Authorization": localStorage.getItem("adminToken")
         }
     })
 }
@@ -21,7 +21,7 @@ export function editBlog(id, title, description, content) {
             content
         },
         headers: {
-            "Authorization": localStorage.getItem("token")
+            "Authorization": localStorage.getItem("adminToken")
         }
     })
 }

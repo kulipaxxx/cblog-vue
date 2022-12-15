@@ -5,12 +5,12 @@ export function getRoles() {
         url: '/admin/user/role/getRoles',
         method: 'get',
         headers: {
-            "Authorization": localStorage.getItem("token")
+            "Authorization": localStorage.getItem("adminToken")
         }
     })
 }
 
-export function editRole(id,username,email,password,created,lastLogin,gender,age) {
+export function editRole(id,username,email,age,gender) {
     return request({
         url: '/admin/user/role/edit',
         method: 'post',
@@ -18,14 +18,11 @@ export function editRole(id,username,email,password,created,lastLogin,gender,age
             id,
             username,
             email,
-            password,
-            created,
-            lastLogin,
-            gender,
-            age
+            age,
+            gender
         },
         headers: {
-            "Authorization": localStorage.getItem("token")
+            "Authorization": localStorage.getItem("adminToken")
         }
     })
 }
@@ -35,7 +32,7 @@ export function deleteRole(id) {
         url: '/admin/user/role/' + id,
         method: 'delete',
         headers: {
-            "Authorization": localStorage.getItem("token")
+            "Authorization": localStorage.getItem("adminToken")
         }
     })
 }

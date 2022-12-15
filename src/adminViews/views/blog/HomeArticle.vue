@@ -17,8 +17,8 @@
             <el-table-column
                     label="发布状态"
             >
-                <p v-if="tableData.status != 1">已发布</p>
-                <p v-else>未发布</p>
+                <el v-if="tableData.status != 1">已发布</el>
+                <el v-else>未发布</el>
             </el-table-column>
 
             <el-table-column
