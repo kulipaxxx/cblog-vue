@@ -10,9 +10,9 @@
                                  style="float: left;height: 100px;">
                         </div>
                         <div style="line-height: 18px;">
-                            <h4>
-                                    {{blog.title}}
-                            </h4>
+                            <router-link :to="{name: 'BlogDetail', params: {blogId: blog.id}}">
+                                {{blog.title}}
+                            </router-link>
                         </div>
 
                     </el-card>

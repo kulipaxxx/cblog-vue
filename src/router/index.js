@@ -133,6 +133,11 @@ export const routes = [
         component: archivePage
     },
     {
+        path: '/aboutPage',
+        name: 'aboutPage',
+        component: () => import('@/views/about/AboutPage'),
+    },
+    {
         path: '/blog/add', // 注意放在 path: '/blog/:blogId'之前
         name: 'BlogAdd',
         meta: {

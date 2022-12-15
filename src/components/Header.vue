@@ -6,7 +6,7 @@
             </el-menu-item>
             <el-menu-item index="2"><a href="/blogs" style="text-decoration: none">首页</a></el-menu-item>
             <el-menu-item index="3" v-show="hasLogin"><a href="/archivePage" style="text-decoration: none">归档</a></el-menu-item>
-            <el-menu-item index="4" v-show="hasLogin"><a href="/" style="text-decoration: none">关于</a></el-menu-item>
+            <el-menu-item index="4" v-show="hasLogin"><a href="/aboutPage" style="text-decoration: none">关于</a></el-menu-item>
             <el-menu-item index="5" style="float: right;">
                 <div v-show="!hasLogin">
                     <span><el-link href="/login" style="text-decoration: none">登录</el-link></span>

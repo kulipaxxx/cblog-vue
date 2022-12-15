@@ -120,10 +120,10 @@
             setTimeout(() => {
               const _this = this;
               login(this.loginForm.username,this.loginForm.password,this.loginForm.code,this.loginForm.uuid).then(res=>{
-                // const token = res.headers['authorization']
-                // _this.$store.commit('SET_TOKEN', token)
-                // _this.$store.commit('SET_USERINFO', res.data.data)
-                // console.log("============");
+                const token = res.headers['authorization']
+                _this.$store.commit('SET_TOKEN', token)
+                _this.$store.commit('SET_USERINFO', res.data.data)
+                console.log("============");
                 console.log(res);
                 _this.$router.push("/layout")
               }).catch(e=>{

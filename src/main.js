@@ -17,7 +17,13 @@ import './styles/all.css'
 //引入markdown
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+//引入bootstrap
+import BootstrapVue from 'bootstrap-vue'
 
+Vue.use(BootstrapVue)
+
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import "element-ui/lib/theme-chalk/index.css"
 import locale from 'element-ui/lib/locale/lang/zh-CN'
