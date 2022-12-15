@@ -57,11 +57,6 @@
                 </span>
                 <el-dropdown-menu slot="dropdown" style="width: 100px;margin-right: -20px;text-align: center;">
                     <el-dropdown-item>
-                        <el-link>
-                            <el-link href="/adminIndex">个人中心</el-link>
-                        </el-link>
-                    </el-dropdown-item>
-                    <el-dropdown-item>
                         <el-link @click="logout">退出</el-link>
                     </el-dropdown-item>
                 </el-dropdown-menu>

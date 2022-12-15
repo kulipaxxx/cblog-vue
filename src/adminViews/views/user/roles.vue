@@ -54,7 +54,20 @@
                 </template>
                 <template slot-scope="scope">
                     <!-- Form -->
-                    <el-button type="text" size="mini" @click="dialogFormVisible = true">详细</el-button>
+                    <el-button type="text"  size="mini" @click="dialogTableVisible = true"><h6>详细</h6></el-button>
+
+                    <el-dialog title="详细信息" :visible.sync="dialogTableVisible" append-to-body>
+                        <el-table :data="userData">
+                            <el-table-column property="username" label="姓名"></el-table-column>
+                            <el-table-column property="avatar" label="头像">
+                                <el-image
+                                            :src="avatar" alt="">
+                                </el-image>
+                            </el-table-column>
+                            <el-table-column property="age" label="年龄"></el-table-column>
+                            <el-table-column property="gender" label="性别"></el-table-column>
+                        </el-table>
+                    </el-dialog>
                     <el-button size="mini" @click="dialogFormVisible = true">编辑</el-button>
 
                     <el-dialog title="编辑" :visible.sync="dialogFormVisible" append-to-body>
@@ -80,11 +93,17 @@
                             <el-button type="primary"  @click="handleEdit(scope.$index, roleForm)">确 定</el-button>
                         </div>
                     </el-dialog>
-                    <el-button
-                            size="mini"
-                            type="danger"
-                            @click="handleDelete(scope.$index)">删除
-                    </el-button>
+                    <el-popconfirm
+                            title="确定删除该角色吗？"
+                    >
+                        <el-button
+                                size="mini"
+                                type="danger"
+                                slot="reference"
+                                @click="handleDelete(scope.$index)">删除
+                        </el-button>
+                    </el-popconfirm>
+
                 </template>
             </el-table-column>
         </el-table>
