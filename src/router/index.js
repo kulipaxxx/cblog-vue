@@ -76,13 +76,19 @@ export const routes = [
                 path: "/blogConsole/comment",
                 name: 'comment',
                 component: () => import('@/adminViews/views/blog/comment'),
-                meta: { title: '文章评论管理', access: 0 }
+                meta: { title: '文章公告管理', access: 0 }
             },
             {
                 path: "/blogConsole/edit",
                 name: 'edit',
                 component: () => import('@/views/Blog/BlogEdit'),
                 meta: { title: '文章编辑', access: 0 }
+            },
+            {
+                path: "/blogConsole/noticeEdit",
+                name: 'edit',
+                component: () => import('@/components/NoticeEdit'),
+                meta: { title: '公告编辑', access: 0 }
             }]
     },
     {

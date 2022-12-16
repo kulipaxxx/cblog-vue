@@ -80,7 +80,6 @@
             }
         },
         created() {
-            let blogId1 = this.$route.params.blogId;
             let blogId2 = this.$route.query.blogId;
             const _this = this;
             if(blogId1 || blogId2) {
