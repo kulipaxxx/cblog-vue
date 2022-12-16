@@ -1,48 +1,70 @@
-<!-- 吸顶 -->
 <template>
-    <div class="about">
-        <!-- 导航 -->
-        <div class="box">
-            <!--<div class="wrap">-->
-                <ul>
-                    <li @click="skipTo('#profile')">公司简介</li>
-                </ul>
-            <!--</div>-->
+    <div>
+        <div v-clickoutside="hideReplyBtn" @click="inputFocus" class="my-reply">
+            <el-avatar class="header-img" :size="40" :src="myHeader"></el-avatar>
+            <div class="reply-info" >
+                <div
+                        tabindex="0"
+                        contenteditable="true"
+                        id="replyInput"
+                        spellcheck="false"
+                        placeholder="输入评论..."
+                        class="reply-input"
+                        @focus="showReplyBtn"
+                        @input="onDivInput($event)"
+                >
+                </div>
+            </div>
+            <div class="reply-btn-box" v-show="btnShow">
+                <el-button class="reply-btn" size="medium" @click="sendComment" type="primary">发表评论</el-button>
+            </div>
+        </div>
+        <div v-for="(item,i) in comments" :key="i" class="author-title reply-father">
+            <el-avatar class="header-img" :size="40" :src="item.headImg"></el-avatar>
+            <div class="author-info">
+                <span class="author-name">{{item.name}}</span>
+                <span class="author-time">{{item.time}}</span>
+            </div>
+            <div class="icon-btn">
+                <span @click="showReplyInput(i,item.name,item.id)"><i class="iconfont el-icon-s-comment"></i>{{item.commentNum}}</span>
+                <i class="iconfont el-icon-caret-top"></i>{{item.like}}
+            </div>
+            <div class="talk-box">
+                <p>
+                    <span class="reply">{{item.comment}}</span>
+                </p>
+            </div>
+            <div class="reply-box">
+                <div v-for="(reply,j) in item.reply" :key="j" class="author-title">
+                    <el-avatar class="header-img" :size="40" :src="reply.fromHeadImg"></el-avatar>
+                    <div class="author-info">
+                        <span class="author-name">{{reply.from}}</span>
+                        <span class="author-time">{{reply.time}}</span>
+                    </div>
+                    <div class="icon-btn">
+                        <span @click="showReplyInput(i,reply.from,reply.id)"><i class="iconfont el-icon-s-comment"></i>{{reply.commentNum}}</span>
+                        <i class="iconfont el-icon-caret-top"></i>{{reply.like}}
+                    </div>
+                    <div class="talk-box">
+                        <p>
+                            <span>回复 {{reply.to}}:</span>
+                            <span class="reply">{{reply.comment}}</span>
+                        </p>
+                    </div>
+                    <div class="reply-box">
+
+                    </div>
+                </div>
+            </div>
+            <div  v-show="_inputShow(i)" class="my-reply my-comment-reply">
+                <el-avatar class="header-img" :size="40" :src="myHeader"></el-avatar>
+                <div class="reply-info" >
+                    <div tabindex="0" contenteditable="true" spellcheck="false" placeholder="输入评论..."   @input="onDivInput($event)"  class="reply-input reply-comment-input"></div>
+                </div>
+                <div class=" reply-btn-box">
+                    <el-button class="reply-btn" size="medium" @click="sendCommentReply(i,j)" type="primary">发表评论</el-button>
+                </div>
+            </div>
         </div>
     </div>
-
 </template>
-
-<script>
-    export default {
-        mounted () {
-            // 监听滚动事件
-            // 监听事件
-            window.addEventListener('scroll', function(){
-                let t = $('body, html').scrollTop();   // 目前监听的是整个body的滚动条距离
-                if(t>0){
-                    $('.box').addClass('box-active')
-                }else{
-                    $('.box').removeClass('box-active')
-                }
-            })
-            this.getData()
-        },
-    }
-
-</script>
-<style scoped>
-    .box{
-        position: fixed;
-        height: 80px;
-        width: 100%;
-        z-index: 999;
-        min-height: 1000px;
-    }
-    /*监听到滚动条开始滚动后的样式*/
-       .box-active{
-           position: fixed;
-           top: 0;
-       }
-
-</style>

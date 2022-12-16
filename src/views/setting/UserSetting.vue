@@ -124,7 +124,10 @@
         methods:
             {
                 handleAvatarSuccess(res, file) {//上传成功之后的操作
-                    this.imageUrl = "http://rl8colubh.hn-bkt.clouddn.com/" + res.key;
+                    console.log(res)
+                    console.log(file)
+                    this.imageUrl = "http://rmeura0wj.hn-bkt.clouddn.com/" + res.key;
+                    console.log("imageUrl" + this.imageUrl)
                     this.EncodedEntryURI = res.key;
                     if (this.imageUrl != null){//更换头像
                         let userInfo = this.$store.getters.getUser;
@@ -164,7 +167,7 @@
         created() {
             let token;
             let policy = {};
-            let bucketName = 'cblog723';
+            let bucketName = 'cblog123';
             let AK = 'IlJlS8lfjC-vYZMSnWl1E-AYtsKZTiSxSfnNw-tP';
             let SK = 'vIbWy_9UMf2bfCHovLdMVHBkJHmZuBODj_vvVujE';
             let deadline = Math.round(new Date().getTime() / 1000) + 3600;
