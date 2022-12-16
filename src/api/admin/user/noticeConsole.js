@@ -43,3 +43,13 @@ export function deleteNotice(id) {
         }
     })
 }
+
+export function noticeOn(id) {
+    return request({
+        url: '/api/notice/' + id,
+        method: 'post',
+        headers: {
+            "Authorization": localStorage.getItem("adminToken")
+        }
+    })
+}

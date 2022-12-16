@@ -78,7 +78,8 @@
     .content{
         max-width: 960px;
         background-color: white;
-        height: 960px;
+        min-height: 200px;
+        max-height: 970px;
         margin: 0 auto;
     }
     .m {

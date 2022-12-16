@@ -63,6 +63,11 @@
                     username: '请先登录',
                     avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
                 },
+                notice: {
+                    title: '',
+                    notice: ''
+                },
+                happy: 'aaaaadad',
                 hasLogin: false
             }
         },
@@ -75,17 +80,30 @@
                 })
             },
             open() {
-                this.$notify({
-                    title: '公告',
-                    message: '暂时还没有公告哦',
-                    offset: 100,
-                    duration: 3500,
-                    showClose: false
-                });
+                if (this.hasLogin && this.notice.title) {
+                    this.$notify({
+                        title: this.notice.title,
+                        message: this.notice.notice,
+                        offset: 100,
+                        duration: 3500,
+                        showClose: false
+                    });
+                }else {
+                    this.$notify({
+                        title: '公告',
+                        message: '暂时还没有公告哦',
+                        offset: 100,
+                        duration: 3500,
+                        showClose: false
+                    })
+                }
+
             }
         },
         created() {
             if (this.$store.getters.getUser) {
+                this.notice.title = this.$store.getters.getUser.title;
+                this.notice.notice = this.$store.getters.getUser.notice;
                 this.user.username = this.$store.getters.getUser.username;
                 if (this.$store.getters.getUser.avatar != null)
                     this.user.avatar = this.$store.getters.getUser.avatar

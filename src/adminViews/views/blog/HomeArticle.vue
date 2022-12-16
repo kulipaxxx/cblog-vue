@@ -20,7 +20,11 @@
                 <el v-if="tableData.status != 1">已发布</el>
                 <el v-else>未发布</el>
             </el-table-column>
-
+            <el-table-column
+                    label="点赞量"
+                    prop="likeCount"
+                    sortable>
+            </el-table-column>
             <el-table-column
                     align="right">
                 <template slot="header" slot-scope="scope">

@@ -18,8 +18,10 @@
                 <el-table-column
                         label="发布状态"
                 >
-                    <el v-if="tableData.status != 1">已发布</el>
-                    <el v-else>未发布</el>
+                    <template slot-scope="scope">
+                        <el v-if="tableData[scope.$index].status === 1">已启用</el>
+                        <el v-else>未启用</el>
+                    </template>
                 </el-table-column>
 
                 <el-table-column
@@ -32,14 +34,24 @@
                                 placeholder="输入关键字搜索"/>
                     </template>
                     <template slot-scope="scope">
+                        <el-button v-show="tableData[scope.$index].status === 0"
+                                size="mini"
+                                type="success"
+                                @click="handleOn(scope.$index)">启用
+                        </el-button>
+                        <el-button v-show="tableData[scope.$index].status === 1"
+                                   size="mini"
+                                   type="warning"
+                                   @click="handleOn(scope.$index)">禁用
+                        </el-button>
                         <el-button
                                 size="mini"
-                                @click="handleEdit(scope.$index, scope.row)">编辑
+                                @click="handleEdit(scope.$index)">编辑
                         </el-button>
                         <el-button
                                 size="mini"
                                 type="danger"
-                                @click="handleDelete(scope.$index, scope.row)">删除
+                                @click="handleDelete(scope.$index)">删除
                         </el-button>
                     </template>
                 </el-table-column>
@@ -62,7 +74,7 @@
 </template>
 
 <script>
-    import {editNotice,deleteNotice,getNotices} from "../../../api/admin/user/noticeConsole";
+    import {deleteNotice,getNotices,noticeOn} from "../../../api/admin/user/noticeConsole";
 
     export default {
         name: "comment",
@@ -80,7 +92,6 @@
         methods: {
             handleEdit(id) {
                 let b = this.notices[id].id;
-                console.log(b);
                 this.$router.push({
                     path: "/blogConsole/noticeEdit",
                     query: {
@@ -88,11 +99,16 @@
                     }
                 });
             },
+            handleOn(id) {
+                let b = this.notices[id].id;
+                noticeOn(b).then(res => {
+                    location.reload()
+                })
+            },
             handleDelete(id) {
                 const b = this.notices[id].id;
-                console.log(b);
                 const _this = this;
-                blogDelete(b).then(res => {
+                deleteNotice(b).then(res => {
                     _this.$router.push("/blogConsole/comment")
                 })
             },
@@ -115,7 +131,7 @@
                     _this.pageSize = res.data.data.size
                     let b = _this.notices.valueOf();
                     this.tableData = b;
-                    console.log(this.tableData)
+                    console.log("status" + this.tableData[0].status)
                 })
             }
         },
