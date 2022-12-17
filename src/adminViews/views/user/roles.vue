@@ -21,8 +21,10 @@
                     prop="roleId"
                     width="100"
             >
-                <el v-if="userData.roleId != 1">管理员</el>
-                <el v-else>普通用户</el>
+                <template slot-scope="scope">
+                    <el v-if="userData[scope.$index].roleId !== 1">管理员</el>
+                    <el v-else>普通用户</el>
+                </template>
             </el-table-column>
             <el-table-column
                     label="邮箱"

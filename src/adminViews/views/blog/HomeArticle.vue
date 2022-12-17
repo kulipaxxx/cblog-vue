@@ -107,8 +107,8 @@
             },
             page(currentPage) {
                 const _this = this
-                // let id = this.$store.getters.getUser.id;
-                let id = 1;
+                let id = this.$store.getters.getAdmin.id;
+                // let id = 1;
                 getIndex(id, currentPage).then(res => {
                     console.log(res)
                     _this.blogs = res.data.data.records;
@@ -123,7 +123,7 @@
         },
         created() {
             this.page(1);
-            console.log(localStorage.getItem("token"))
+            console.log(sessionStorage.getItem("adminToken"))
         }
     }
 </script>

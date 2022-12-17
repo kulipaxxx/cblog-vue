@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
 import BlogDetail from '../views/Blog/BlogDetails.vue'
 import BlogEdit from '../views/Blog/BlogEdit.vue'
-import UserSeeting from '../views/setting/UserSetting'
 import Register from "../views/Register"
 import Index from '@/views/User/Index'
 import adminLogin from '@/adminViews/login'
@@ -61,6 +60,12 @@ export const routes = [
                 name: 'auths',
                 component: () => import('@/adminViews/views/user/auths'),
                 meta: { title: '用户权限管理', access: 0 }
+            },
+            {
+                path: "/userConsole/toMe",
+                name: 'toMe',
+                component: () => import('@/adminViews/views/user/selfCenter.vue'),
+                meta: { title: '用户个人管理', access: 0 }
             }]
     },
     {
@@ -113,11 +118,11 @@ export const routes = [
         // 懒加载
         component: () => import('../views/Blog/Blogs.vue')
     },
-    {
-        path: '/setting',
-        name: 'Seeting',
-        component: UserSeeting
-    },
+    // {
+    //     path: '/setting',
+    //     name: 'Seeting',
+    //     component: UserSeeting
+    // },
     {
         path: '/index',
         name: 'userIndex',

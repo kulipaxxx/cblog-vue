@@ -22,11 +22,11 @@
                                     <el-link href="/index">我的主页</el-link>
                                 </el-link>
                             </el-dropdown-item>
-                            <el-dropdown-item>
-                                <el-link>
-                                    <el-link href="/setting">设置</el-link>
-                                </el-link>
-                            </el-dropdown-item>
+                            <!--<el-dropdown-item>-->
+                                <!--<el-link>-->
+                                    <!--<el-link href="/setting">设置</el-link>-->
+                                <!--</el-link>-->
+                            <!--</el-dropdown-item>-->
                             <!-- <el-dropdown-item>
                                 <el-link>
                                     <el-link href="/man">管理博客</el-link>

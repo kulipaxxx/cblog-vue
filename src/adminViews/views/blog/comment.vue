@@ -137,7 +137,7 @@
         },
         created() {
             this.page(1);
-            console.log(localStorage.getItem("token"))
+            console.log(sessionStorage.getItem("adminToken"))
         }
     }
 </script>

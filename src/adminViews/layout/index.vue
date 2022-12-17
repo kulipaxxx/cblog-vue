@@ -158,7 +158,10 @@
                 })
             },
             toMe() {
-
+                console.log("用户id", this.$store.getters.getAdmin.id)
+                this.$router.push({
+                    path: '/userConsole/toMe',
+                })
             }
         },
         created() {
