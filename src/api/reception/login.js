@@ -36,7 +36,7 @@ export function logout() {
         url: 'auth/logout',
         method: 'post',
         headers: {
-            "Authorization": localStorage.getItem("token")
+            "Authorization": sessionStorage.getItem("token")
         }
     })
 }

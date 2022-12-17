@@ -18,8 +18,10 @@
                     </el-card>
                 </el-timeline-item>
             </el-timeline>
-
-            <el-pagination class="mpage"
+            <div v-show="!noPage" class="noPage">
+                <h1>还没有发表文章哦</h1>
+            </div>
+            <el-pagination v-show="noPage" class="mpage"
                            background
                            layout="prev, pager, next"
                            :current-page="currentPage"
@@ -36,13 +38,14 @@
 <script>
     import Header from "@/components/Header";
     import Footer from "@/components/Footer";
-    import {getblogs} from "../../api/reception/blog/blog";
+    import {getIndex} from "../../api/reception/blog/blog";
 
     export default {
         name: "archivePage",
         components: {Header,Footer},
         data() {
             return {
+                noPage: false,
                 blogs: {},
                 currentPage: 1,
                 total: 0,
@@ -50,12 +53,15 @@
             }
         },
         methods: {
-            page(currentPage) {
+            page(id,currentPage) {
                 const _this = this
                 console.log("进入博客页面")
-                getblogs(currentPage).then(res => {
+                getIndex(id,currentPage).then(res => {
                     console.log(res)
                     _this.blogs = res.data.data.records
+                    if (_this.blogs.length !== 0){
+                        _this.noPage = true;
+                    }
                     _this.currentPage = res.data.data.current
                     _this.total = res.data.data.total
                     _this.pageSize = res.data.data.size
@@ -63,7 +69,8 @@
             }
         },
         created() {
-            this.page(1)
+            console.log("id", this.$store.getters.getUser.id)
+            this.page(this.$store.getters.getUser.id,1)
         }
     }
 </script>
@@ -74,7 +81,10 @@
         margin: 0 auto;
         text-align: center;
     }
-
+    .noPage {
+        margin: 0 auto;
+        text-align: center;
+    }
     .content{
         max-width: 960px;
         background-color: white;

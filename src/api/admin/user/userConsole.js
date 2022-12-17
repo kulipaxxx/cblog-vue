@@ -5,7 +5,7 @@ export function getRoles() {
         url: '/admin/user/role/getRoles',
         method: 'get',
         headers: {
-            "Authorization": localStorage.getItem("adminToken")
+            "Authorization": sessionStorage.getItem("adminToken")
         }
     })
 }
@@ -22,7 +22,7 @@ export function editRole(id,username,email,age,gender) {
             gender
         },
         headers: {
-            "Authorization": localStorage.getItem("adminToken")
+            "Authorization": sessionStorage.getItem("adminToken")
         }
     })
 }
@@ -32,7 +32,7 @@ export function deleteRole(id) {
         url: '/admin/user/role/' + id,
         method: 'delete',
         headers: {
-            "Authorization": localStorage.getItem("adminToken")
+            "Authorization": sessionStorage.getItem("adminToken")
         }
     })
 }

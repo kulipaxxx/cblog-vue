@@ -57,6 +57,9 @@
                 </span>
                 <el-dropdown-menu slot="dropdown" style="width: 100px;margin-right: -20px;text-align: center;">
                     <el-dropdown-item>
+                        <el-link @click="toMe">个人中心</el-link>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
                         <el-link @click="logout">退出</el-link>
                     </el-dropdown-item>
                 </el-dropdown-menu>
@@ -154,8 +157,13 @@
                     _this.$router.push("/admin")
                 })
             },
+            toMe() {
+
+            }
         },
         created() {
+            console.log("用户信息")
+            console.log(this.$store.getters.getAdmin)
             if (this.$store.getters.getAdmin)
                 this.hasLogin = true;
             if (!this.hasLogin) {

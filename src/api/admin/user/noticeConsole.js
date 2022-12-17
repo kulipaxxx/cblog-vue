@@ -5,7 +5,7 @@ export function getNotices(id,currentPage) {
         url: '/api/notice/getNotice/' + id + '/' + currentPage,
         method: 'get',
         headers: {
-            "Authorization": localStorage.getItem("adminToken")
+            "Authorization": sessionStorage.getItem("adminToken")
         }
     })
 }
@@ -20,7 +20,7 @@ export function editNotice(id,title,content) {
             content
         },
         headers: {
-            "Authorization": localStorage.getItem("adminToken")
+            "Authorization": sessionStorage.getItem("adminToken")
         }
     })
 }
@@ -30,7 +30,7 @@ export function getDetail(id) {
         url: '/api/notice/' + id,
         method: 'get',
         headers: {
-            "Authorization": localStorage.getItem("adminToken")
+            "Authorization": sessionStorage.getItem("adminToken")
         }
     })
 }
@@ -39,7 +39,7 @@ export function deleteNotice(id) {
         url: '/api/notice/' + id,
         method: 'delete',
         headers: {
-            "Authorization": localStorage.getItem("adminToken")
+            "Authorization": sessionStorage.getItem("adminToken")
         }
     })
 }
@@ -49,7 +49,7 @@ export function noticeOn(id) {
         url: '/api/notice/' + id,
         method: 'post',
         headers: {
-            "Authorization": localStorage.getItem("adminToken")
+            "Authorization": sessionStorage.getItem("adminToken")
         }
     })
 }

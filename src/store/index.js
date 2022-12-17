@@ -23,7 +23,7 @@ export default new Vuex.Store({
     //setUser
     SET_TOKEN: (state,token) => {
       state.token = token;
-      localStorage.setItem("token", token);
+      sessionStorage.setItem("token", token);
     },
     SET_USERINFO: (state, userInfo) => {
       state.userInfo = userInfo;
@@ -37,7 +37,7 @@ export default new Vuex.Store({
     //setAdmin
     SET_ADMINTOKEN: (state,token) => {
       state.adminToken = token;
-      localStorage.setItem("adminToken", token);
+      sessionStorage.setItem("adminToken", token);
     },
     SET_ADMININFO: (state, userInfo) => {
       state.adminInfo = userInfo;

@@ -137,6 +137,7 @@ export default {
     },
   },
   created() {
+
     this.page(this.$store.getters.getUser.id,1);
 
     let token;

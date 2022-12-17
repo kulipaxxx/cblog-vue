@@ -69,6 +69,8 @@
             }
         },
         created() {
+            // console.log("用户信息：")
+            // console.log(this.$store.getters.getUser.id)
             this.page(1)
         }
     }

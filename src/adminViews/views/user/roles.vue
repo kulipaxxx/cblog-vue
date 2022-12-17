@@ -164,6 +164,7 @@
             },
         },
         created() {
+            console.log(sessionStorage.getItem("adminToken"))
             getRoles().then(res => {
                 this.userData = res.data.data;
                 console.log("角色信息" + res.data);
