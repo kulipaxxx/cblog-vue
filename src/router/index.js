@@ -43,29 +43,29 @@ export const routes = [
             path: '/home',//路径
             name: 'home',
             component: () => import('@/adminViews/views/home'),//指定组件
-            meta: { title: '首页', access: 0, affix: true }
+            meta: {title: '首页', access: 0, affix: true}
         }]
     },
     {
         path: '/userConsole',
         component: Layout,
         children: [{
-                path: "/userConsole/roles",
-                name: 'roles',
-                component: () => import('@/adminViews/views/user/roles'),
-                meta: {title: '用户角色管理', access: 0}
-            },
+            path: "/userConsole/roles",
+            name: 'roles',
+            component: () => import('@/adminViews/views/user/roles'),
+            meta: {title: '用户角色管理', access: 0}
+        },
             {
                 path: "/userConsole/auths",
                 name: 'auths',
                 component: () => import('@/adminViews/views/user/auths'),
-                meta: { title: '用户权限管理', access: 0 }
+                meta: {title: '用户权限管理', access: 0}
             },
             {
                 path: "/userConsole/toMe",
                 name: 'toMe',
                 component: () => import('@/adminViews/views/user/selfCenter.vue'),
-                meta: { title: '用户个人管理', access: 0 }
+                meta: {title: '用户个人管理', access: 0}
             }]
     },
     {
@@ -76,25 +76,36 @@ export const routes = [
             name: 'article',
             component: () => import('@/adminViews/views/blog/HomeArticle'),
             meta: {title: '用户文章管理', access: 0}
-            },
+        },
             {
                 path: "/blogConsole/comment",
                 name: 'comment',
                 component: () => import('@/adminViews/views/blog/comment'),
-                meta: { title: '文章公告管理', access: 0 }
+                meta: {title: '文章公告管理', access: 0}
             },
             {
                 path: "/blogConsole/edit",
                 name: 'edit',
                 component: () => import('@/views/Blog/BlogEdit'),
-                meta: { title: '文章编辑', access: 0 }
+                meta: {title: '文章编辑', access: 0}
             },
             {
                 path: "/blogConsole/noticeEdit",
                 name: 'edit',
                 component: () => import('@/components/NoticeEdit'),
-                meta: { title: '公告编辑', access: 0 }
+                meta: {title: '公告编辑', access: 0}
             }]
+    },
+    {
+        path: '/pageConsole',
+        component: Layout,
+        children: [{
+            path: "/pageConsole/aboutMe",
+            name: 'aboutMe',
+            component: () => import('@/adminViews/views/blog/aboutPage.vue'),
+            meta: {title: '用户文章管理', access: 0}
+        },
+        ]
     },
     {
         path: '/test',
@@ -105,7 +116,7 @@ export const routes = [
     {
         path: '/',
         name: 'Index',
-        redirect: { name: 'Blogs' }
+        redirect: {name: 'Blogs'}
     },
     {
         path: '/login',

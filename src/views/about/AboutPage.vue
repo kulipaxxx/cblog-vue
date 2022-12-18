@@ -1,45 +1,64 @@
 <template>
-    <b-container class="main">
-        <b-row>
-            <b-col cols="12" sm="12" md="12" lg="12" xl="12">
-                <b-media>
-                    <template>
-                        <b-img blank blank-color="#ccc" width="64" alt="placeholder"></b-img>
-                    </template>
-                    <h5 class="mt-0">芊雨</h5>
-                    <p>大三狗一枚，对java后端开发具有浓厚的兴趣。</p>
-                </b-media>
-            </b-col>
-            <b-col cols="12" sm="12" md="12" lg="12" xl="12">
-                <h5>内心独白</h5>
-                <p>
-                    内容
-                </p>
-            </b-col>
-        </b-row>
-    </b-container>
+    <div>
+        <Header></Header>
+
+        <div class="mblog">
+            <h2>{{ about.title }}</h2>
+            <el-divider></el-divider>
+            <div class="markdown-body" v-html="about.content"></div>
+            <el-backtop></el-backtop>
+        </div>
+        <Footer></Footer>
+    </div>
 </template>
 
 <script>
+    import "github-markdown-css";
+    import Header from "@/components/Header";
+    import Footer from "@/components/Footer";
+    import ArticleComment from "@/components/Comment";
+
     export default {
-        name: "AboutPage"
+        name: "AboutPage",
+        components: {Header, Footer, ArticleComment},
+
+        data() {
+            return {
+                about: {
+                    id: 0,
+                    title: "",
+                    content: "",
+                },
+                ownBlog: false,
+                hasLike: false,
+                count: 0,
+                commentList: {},
+                hasLogin: false,
+            };
+        },
+        methods: {
+
+        },
+        created() {
+
+        },
     };
 </script>
 
 <style scoped>
-    .main {
-        margin-top: 10px;
-        padding: 20px;
-        min-height: 100%;
-        background-color: #fff;
-        /*background-image: url("@/assets/logo.gif");*/
-        background-size: cover;
-        background-repeat: no-repeat;
+    .mblog {
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        min-height: 200px;
+        padding: 20px 15px;
+        width: 960px;
+        background-color: white;
+        margin: 0 auto;
     }
-    h5 {
-        margin-top: 20px;
-        text-align: left;
-        font-size: 20px;
+
+    .like {
+        border: 0;
+        background-color: white;
+        width: 960px;
+        margin: 0 auto;
     }
 </style>
-

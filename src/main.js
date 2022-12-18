@@ -19,7 +19,8 @@ import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 //引入bootstrap
 import BootstrapVue from 'bootstrap-vue'
-
+//引入wow.js
+import 'animate.css'
 Vue.use(BootstrapVue)
 
 import 'bootstrap/dist/css/bootstrap.css'

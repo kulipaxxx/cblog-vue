@@ -1,7 +1,7 @@
 <template>
     <div>
         <Header></Header>
-        <el-form :model="ruleForm" ref="ruleForm" label-width="100px"
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px"
                  style="text-align: center;margin: 0 auto;width: 660px">
             <el-form-item label="">
                 <el-upload
@@ -59,6 +59,21 @@
                 EncodedEntryURI: "",
                 actionPath: "http://upload-z2.qiniup.com",
                 ruleForm: {},
+                rules: {
+                    username: [
+                        { required: true, message: '请输入用户名', trigger: 'blur' },
+                        { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+                    ],
+                    gender: [
+                        { required: true, message: '请选择性别', trigger: 'change' }
+                    ],
+                    age: [
+                        { type: 'date', required: true, message: '请输入年龄', trigger: 'change' }
+                    ],
+                    email: [{ required: true, message: '请输入邮箱地址', trigger: 'blur' },
+                        { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
+                    ],
+                }
             }
         },
         methods:
@@ -92,18 +107,11 @@
                     save(this.ruleForm.id,this.ruleForm.username
                         ,this.ruleForm.avatar,this.ruleForm.email
                         ,this.ruleForm.gender,this.ruleForm.age).then(res => {
-
+                        this.$message({
+                            type: 'success',
+                            message: '操作成功'
+                        })
                     })
-                    // this.$refs[formName].validate((valid) => {
-                    //     if (valid) {
-                    //         this.$axios.post("/user/save", this.ruleForm).then(res=>{
-                    //
-                    //         })
-                    //     } else {
-                    //         console.log('error submit!!');
-                    //         return false;
-                    //     }
-                    // });
                 },
                 resetForm(formName) {
                     this.$refs[formName].resetFields();
