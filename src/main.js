@@ -22,7 +22,7 @@ import BootstrapVue from 'bootstrap-vue'
 //引入wow.js
 import 'animate.css'
 Vue.use(BootstrapVue)
-
+import 'github-markdown-css/github-markdown.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 

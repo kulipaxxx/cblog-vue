@@ -18,7 +18,7 @@
 </template>
 
 <script>
-
+    import {getPage,save} from "../../../api/admin/blog/aboutConsole";
 
     export default {
         name: "aboutPage.vue",
@@ -27,7 +27,7 @@
                 ruleForm: {
                     id: '',
                     title: '',
-                    content: ''
+                    content: '',
                 },
                 rules: {
                     title: [
@@ -36,7 +36,6 @@
                     ],
                     content: [
                         {required: true, message: '请输入内容', trigger: 'blur'},
-                        {min: 10, max: 25, message: '长度在 10 到 25 个字符', trigger: 'blur'}
                     ]
                 }
             };
@@ -46,11 +45,11 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this
-                        editNotice(this.ruleForm.id, this.ruleForm.title, this.ruleForm.content).then(res => {
+                        save(this.ruleForm.id, this.$store.getters.getAdmin.id, this.ruleForm.title, this.ruleForm.content).then(res => {
                             _this.$alert('操作成功', '提示', {
                                 confirmButtonText: '确定',
                                 callback: action => {
-                                    _this.$router.push("/blogConsole/comment")
+                                    _this.$router.push("/pageConsole/aboutMe")
                                 }
                             });
                         })
@@ -65,11 +64,11 @@
             },
         },
         created() {
-            let id = this.$route.query.id;
+            let id = this.$store.getters.getAdmin.id;
             const _this = this;
-            console.log("公告id" +id);
+            console.log("关于页面：用户id" +id);
             if(id) {
-                getDetail(id).then(res => {
+                getPage(id).then(res => {
                     const notices = res.data.data
                     console.log(notices);
                     _this.ruleForm.id = notices.id

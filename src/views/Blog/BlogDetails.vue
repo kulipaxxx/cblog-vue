@@ -76,7 +76,7 @@
                 blog: {
                     id: 0,
                     title: "",
-                    content: "",
+                    content: "# 1111",
                 },
                 ownBlog: false,
                 hasLike: false,
