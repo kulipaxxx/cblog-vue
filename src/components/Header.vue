@@ -105,7 +105,7 @@
                 this.notice.title = this.$store.getters.getUser.title;
                 this.notice.notice = this.$store.getters.getUser.notice;
                 this.user.username = this.$store.getters.getUser.username;
-                if (this.$store.getters.getUser.avatar != null)
+                if (this.$store.getters.getUser.avatar != null && this.$store.getters.getUser.avatar !== "")
                     this.user.avatar = this.$store.getters.getUser.avatar
                 this.hasLogin = true
             }

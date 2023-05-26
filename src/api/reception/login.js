@@ -40,12 +40,13 @@ export function logout() {
         }
     })
 }
-export function getPassword(username,email,code,uuid){
+export function getPassword(username,password,email,code,uuid){
     return request({
         url: 'auth/getPassword',
         method: 'post',
         data: {
             username,
+            password,
             email,
             code,
             uuid

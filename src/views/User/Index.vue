@@ -174,6 +174,9 @@ export default {
   max-width: 960px;
   height: 250px;
   background-color: antiquewhite;
+  background-image: url("../../assets/index.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
   margin: 0 auto;
 }
 </style>

@@ -53,7 +53,7 @@
             </div>
             <el-dropdown class="avatar">
                 <span class="el-dropdown-link">
-                    <el-avatar :size="48" :src="user.avatar"></el-avatar>
+                    <el-avatar :size="48" :src="user.avatar" :fit="user.fit"></el-avatar>
                 </span>
                 <el-dropdown-menu slot="dropdown" style="width: 100px;margin-right: -20px;text-align: center;">
                     <el-dropdown-item>
@@ -83,7 +83,8 @@
                 hasLogin: false,
                 user: {
                     username: '请先登录',
-                    avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+                    avatar: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
+                    fit: 'scale-down'
                 },
                 menu_list: [
                     {
@@ -117,14 +118,14 @@
                             {path: "/pageConsole/aboutMe", title: "关于页面"},
                         ]
                     },
-                    {
-                        path: "/sys",
-                        title: "系统管理",
-                        icon: "el-icon-s-tools",
-                        children: [
-                            {path: "/sys/jobs", title: "定时任务"},
-                        ]
-                    },
+                    // {
+                    //     path: "/sys",
+                    //     title: "系统管理",
+                    //     icon: "el-icon-s-tools",
+                    //     children: [
+                    //         {path: "/sys/jobs", title: "定时任务"},
+                    //     ]
+                    // },
 
                 ],
                 status: {
@@ -166,9 +167,13 @@
         },
         created() {
             console.log("用户信息")
-            console.log(this.$store.getters.getAdmin)
-            if (this.$store.getters.getAdmin)
+            const admin = this.$store.getters.getAdmin
+            console.log(admin)
+            if (admin) {
                 this.hasLogin = true;
+                if (admin.avatar != null && admin.avatar !== "")
+                    this.user.avatar = admin.avatar;
+            }
             if (!this.hasLogin) {
                 this.$message({
                     message: '请先登录',

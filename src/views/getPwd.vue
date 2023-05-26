@@ -20,6 +20,16 @@
                                 autocomplete="off"
                         ></el-input>
                     </el-form-item>
+                    <el-form-item label="新密码：" prop="password">
+                        <el-input
+                                prefix-icon="el-icon-menu"
+                                style="width: 250px"
+                                show-password
+                                type="password"
+                                v-model="ruleForm.password"
+                                autocomplete="off"
+                        ></el-input>
+                    </el-form-item>
                     <el-form-item label="邮 箱：" prop="email">
                         <el-input
                                 prefix-icon="el-icon-s-comment"
@@ -59,6 +69,7 @@
                 loading: false,
                 ruleForm: {
                     username: '',
+                    password: '',
                     email: '',
                     code: '',
                     uuid: '',
@@ -67,6 +78,10 @@
                     username: [
                         {required: true, message: '请输入用户名', trigger: 'blur'},
                         {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+                    ],
+                    password: [
+                        {required: true, message: '请输入密码', trigger: 'change'},
+                        {min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur'}
                     ],
                     email: [{ required: true, message: '请输入邮箱地址', trigger: 'blur' },
                         { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}
@@ -82,7 +97,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         const _this = this;
-                        getPassword(this.ruleForm.username,this.ruleForm.email,this.ruleForm.code,this.ruleForm.uuid).then(res => {
+                        getPassword(this.ruleForm.username,this.ruleForm.password,this.ruleForm.email,this.ruleForm.code,this.ruleForm.uuid).then(res => {
                             _this.$router.push("/login")
                         })
                     } else {

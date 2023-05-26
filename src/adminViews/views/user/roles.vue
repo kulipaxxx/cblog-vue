@@ -63,7 +63,7 @@
                             <el-table-column property="username" label="姓名"></el-table-column>
                             <el-table-column property="avatar" label="头像">
                                 <el-image
-                                            :src="avatar" alt="">
+                                            :src="userData[scope.$index].avatar" alt="">
                                 </el-image>
                             </el-table-column>
                             <el-table-column property="age" label="年龄"></el-table-column>
@@ -160,9 +160,9 @@
                 const b = this.userData[id].id;
                 console.log(b);
                 const _this = this;
-                // deleteRole(b).then(res => {
-                //     _this.$router.push("/blogConsole/article")
-                // })
+                deleteRole(b).then(res => {
+                    _this.$router.push("/userConsole/roles")
+                })
             },
         },
         created() {

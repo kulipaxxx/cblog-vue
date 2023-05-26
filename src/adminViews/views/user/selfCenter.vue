@@ -86,22 +86,25 @@
                     this.EncodedEntryURI = res.key;
                     if (this.imageUrl != null) {//更换头像
                         this.ruleForm.avatar = this.imageUrl;
-                        let userInfo = this.$store.getters.getAdmin();
-                        userInfo.avater = this.imageUrl;
+                        let userInfo = this.$store.getters.getAdmin;
+                        userInfo.avatar = this.imageUrl;
                         this.$store.commit("SET_ADMININFO", userInfo);
+                        console.log("adminInfo")
+                        console.log(userInfo)
+                        console.log(this.$store.getters.getAdmin)
                     }
                 },
                 beforeAvatarUpload(file) {//上传之前的操作
-                    const isJPG = (file.type === 'image/jpeg');
+                    const isPNG = (file.type === 'image/png');
                     const isLt2M = file.size / 1024 / 1024 < 2;
 
-                    if (!isJPG) {
-                        this.$message.error('上传头像图片只能是 JPEG 格式!');
+                    if (!isPNG) {
+                        this.$message.error('上传头像图片只能是 PNG 格式!');
                     }
                     if (!isLt2M) {
                         this.$message.error('上传头像图片大小不能超过 2MB!');
                     }
-                    return isJPG && isLt2M;
+                    return isPNG && isLt2M;
                 },
                 submitForm() {
                     save(this.ruleForm.id,this.ruleForm.username
@@ -123,6 +126,9 @@
             index(id).then(res => {
                 this.ruleForm = res.data.data;
                 console.log(this.ruleForm)
+                if (this.ruleForm.avatar != null &&this.ruleForm.avatar !== ""){
+                    this.imageUrl = this.ruleForm.avatar
+                }
             })
             let token;
             let policy = {};
@@ -130,8 +136,6 @@
             let AK = 'IlJlS8lfjC-vYZMSnWl1E-AYtsKZTiSxSfnNw-tP';
             let SK = 'vIbWy_9UMf2bfCHovLdMVHBkJHmZuBODj_vvVujE';
             let deadline = Math.round(new Date().getTime() / 1000) + 3600;
-            if (this.$store.getters.getAdmin.avatar != null)
-                this.imageUrl = this.$store.getters.getUser.avatar
             policy.scope = bucketName;
             policy.deadline = deadline;
             token = genUpToken(AK, SK, policy);

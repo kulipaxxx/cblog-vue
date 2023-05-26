@@ -80,10 +80,9 @@
             }
         },
         created() {
-            let blogId2 = this.$route.query.blogId;
+            let blogId = this.$route.query.blogId;
             const _this = this;
-            if(blogId1 || blogId2) {
-                let blogId = blogId1 ? blogId1 : blogId2;
+            if(blogId) {
                 getDetail(blogId).then(res => {
                     const blog = res.data.data
                     _this.ruleForm.id = blog.id
